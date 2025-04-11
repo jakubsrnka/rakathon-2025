@@ -33,7 +33,7 @@
       </div>
       <div class="grid gap-2">
         <Label for="email">{m.login_email()}</Label>
-        <Input id="email" type="email" placeholder="name@example.com" />
+        <Input id="email" type="email" placeholder={m.login_example_email()} />
       </div>
       <div class="grid gap-2">
         <Label for="password">{m.login_password()}</Label>
@@ -41,7 +41,7 @@
       </div>
     </Card.Content>
     <Card.Footer>
-      <Button class="w-full">{m.login_create_account_button()}</Button>
+      <Button class="w-full" href="/user">{m.login_create_account_button()}</Button>
     </Card.Footer>
   </Card.Root>
 </div>
