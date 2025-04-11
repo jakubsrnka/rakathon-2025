@@ -1,13 +1,13 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "hello_world": "Hello, {name} from en!",
-  "user_login": "Přihlásit se",
   "login_citizen_portal": "Identita Občana",
   "login_create_account_button": "Přihlásit se",
   "login_email": "Email",
-  "login_example_email": "priklad@gmail.com",
   "login_enter_email": "Přihlašte se pomocí Identity Občana",
+  "login_example_email": "priklad@gmail.com",
   "login_login_via": "Přihlásit",
   "login_or_continue_with": "Nebo pokračujte s",
-  "login_password": "Heslo"
+  "login_password": "Heslo",
+  "user_login": "Přihlásit se"
 }
