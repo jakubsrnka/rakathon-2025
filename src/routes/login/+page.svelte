@@ -14,7 +14,7 @@
     </Card.Header>
     <Card.Content class="grid gap-4">
       <div class="grid grid-cols-1 gap-6">
-        <Button variant="outline" class="h-16">
+        <Button variant="outline" class="h-16" href="/user">
           <img
             src="/assets/indentita-obcana-logo.png"
             alt="Indentita Obcana Logo"
