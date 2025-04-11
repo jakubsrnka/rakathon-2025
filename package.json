@@ -42,7 +42,8 @@
     "vite": "^6.2.5"
   },
   "dependencies": {
-    "@inlang/paraglide-js": "^2.0.0"
+    "@inlang/paraglide-js": "^2.0.0",
+    "@lucide/svelte": "^0.487.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
