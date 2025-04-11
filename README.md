@@ -1,38 +1,33 @@
-# sv
+# rakathon-2025 (by alejgang 😎)
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+## what is this?
 
-## Creating a project
+This repository hosts a SvelteKit application that serves as a frontend for the Rakathon 2025 hackathon. The application is designed to provide a user-friendly interface as a solution for the hackathon's challenge.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## who is behind this?
 
-```bash
-# create a new project in the current directory
-npx sv create
+- Jakub Srnka (jakubsrnka)
+- Jan Řehák (floxicek)
+- Pavel Lacina (ParzivalPavlis)
+- Vincent Šmíd
 
-# create a new project in my-app
-npx sv create my-app
+## how to run it?
+
+### installation
+
+```
+pnpm install
 ```
 
-## Developing
+### development
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```
+pnpm dev
 ```
 
-## Building
+### format and lint
 
-To create a production version of your app:
-
-```bash
-npm run build
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+pnpm format
+pnpm lint
+```
