@@ -1,4 +1,11 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "hello_world": "Hello, {name} from cs!"
+  "hello_world": "Hello, {name} from en!",
+  "login_citizen_portal": "Identita Občana",
+  "login_create_account_button": "Přihlásit se",
+  "login_email": "Email",
+  "login_enter_email": "Přihlašte se pomocí Identity Občana",
+  "login_login_via": "Přihlásit",
+  "login_or_continue_with": "Nebo pokračujte s",
+  "login_password": "Heslo"
 }
