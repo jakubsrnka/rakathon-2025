@@ -35,13 +35,13 @@ importers:
         version: 9.24.0
       '@sveltejs/adapter-node':
         specifier: ^5.2.12
-        version: 5.2.12(@sveltejs/kit@2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1)))
+        version: 5.2.12(@sveltejs/kit@2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)))
       '@sveltejs/kit':
         specifier: ^2.16.0
-        version: 2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1))
+        version: 2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1))
       '@sveltejs/vite-plugin-svelte':
         specifier: ^5.0.0
-        version: 5.0.3(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1))
+        version: 5.0.3(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1))
       '@tailwindcss/forms':
         specifier: ^0.5.10
         version: 0.5.10(tailwindcss@3.4.17)
@@ -75,6 +75,9 @@ importers:
       mode-watcher:
         specifier: ^0.5.1
         version: 0.5.1(svelte@5.26.1)
+      openai:
+        specifier: ^4.93.0
+        version: 4.93.0(encoding@0.1.13)
       prettier:
         specifier: ^3.4.2
         version: 3.5.3
@@ -113,7 +116,7 @@ importers:
         version: 8.29.1(eslint@9.24.0(jiti@1.21.7))(typescript@5.8.3)
       vite:
         specifier: ^6.2.5
-        version: 6.2.6(jiti@1.21.7)(yaml@2.7.1)
+        version: 6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)
 
 packages:
 
@@ -641,6 +644,12 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
+  '@types/node-fetch@2.6.12':
+    resolution: {integrity: sha512-8nneRWKCg3rMtF69nLQJnOYUcbafYeFSjqkw3jCRLsqkWFlHaoQrr5mXmofFGOx3DKn7UfmBMyov8ySvLRVldA==}
+
+  '@types/node@18.19.86':
+    resolution: {integrity: sha512-fifKayi175wLyKyc5qUfyENhQ1dCNI1UNjp653d8kuYcPQN5JhX3dGuP/XmvPTg/xRBn1VTLpbmi+H/Mr7tLfQ==}
+
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
 
@@ -693,6 +702,10 @@ packages:
 
   abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
+
+  abort-controller@3.0.0:
+    resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
+    engines: {node: '>=6.5'}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -1125,6 +1138,10 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
+  event-target-shim@5.0.1:
+    resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
+    engines: {node: '>=6'}
+
   expand-template@2.0.3:
     resolution: {integrity: sha512-XYfuKMvj4O35f/pOXLObndIRvyQ+/+6AhODh+OKWj9S9498pHHn/IMszH+gt0fBCRWMNfk1ZSp5x3AifmnI2vg==}
     engines: {node: '>=6'}
@@ -1182,9 +1199,16 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
+  form-data-encoder@1.7.2:
+    resolution: {integrity: sha512-qfqtYan3rxrnCk1VYaA4H+Ms9xdpPqvLZa6xmMgFvhO32x7/3J/ExcTd6qpxM0vH2GdMI+poehyBZvqfMTto8A==}
+
   form-data@4.0.2:
     resolution: {integrity: sha512-hGfm/slu0ZabnNt4oaRZ6uREyfCj6P4fT/n6A1rGV+Z0VdGXjfOhVUpkn6qVQONHGIFwmveGXyDs75+nr6FM8w==}
     engines: {node: '>= 6'}
+
+  formdata-node@4.4.1:
+    resolution: {integrity: sha512-0iirZp3uVDjVGt9p49aTaqjk84TrglENEDuqfdlZQ1roC9CWlPk6Avf8EEnZNcAqPonwkG35x4n3ww/1THYAeQ==}
+    engines: {node: '>= 12.20'}
 
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
@@ -1606,6 +1630,10 @@ packages:
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
 
+  node-domexception@1.0.0:
+    resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
+    engines: {node: '>=10.5.0'}
+
   node-fetch@2.7.0:
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
     engines: {node: 4.x || >=6.0.0}
@@ -1651,6 +1679,18 @@ packages:
 
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
+
+  openai@4.93.0:
+    resolution: {integrity: sha512-2kONcISbThKLfm7T9paVzg+QCE1FOZtNMMUfXyXckUAoXRRS/mTP89JSDHPMp8uM5s0bz28RISbvQjArD6mgUQ==}
+    hasBin: true
+    peerDependencies:
+      ws: ^8.18.0
+      zod: ^3.23.8
+    peerDependenciesMeta:
+      ws:
+        optional: true
+      zod:
+        optional: true
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -2181,6 +2221,9 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+
   unique-filename@1.1.1:
     resolution: {integrity: sha512-Vmp0jIp2ln35UTXuryvjzkjGdRyf9b2lTXuSYUiPmzRcl3FDtYqAwOnTJkAngD9SWhnoJzDbTKwaOrZ+STtxNQ==}
 
@@ -2257,6 +2300,10 @@ packages:
     peerDependenciesMeta:
       vite:
         optional: true
+
+  web-streams-polyfill@4.0.0-beta.3:
+    resolution: {integrity: sha512-QW95TCTaHmsYfHDybGMwO5IJIM93I/6vTRk+daHTWFPhwh+C8Cg7j7XyKrwrj8Ib6vYXe0ocYNrmzY4xAAN6ug==}
+    engines: {node: '>= 14'}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -2689,17 +2736,17 @@ snapshots:
     dependencies:
       acorn: 8.14.1
 
-  '@sveltejs/adapter-node@5.2.12(@sveltejs/kit@2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1)))':
+  '@sveltejs/adapter-node@5.2.12(@sveltejs/kit@2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)))':
     dependencies:
       '@rollup/plugin-commonjs': 28.0.3(rollup@4.39.0)
       '@rollup/plugin-json': 6.1.0(rollup@4.39.0)
       '@rollup/plugin-node-resolve': 16.0.1(rollup@4.39.0)
-      '@sveltejs/kit': 2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1))
+      '@sveltejs/kit': 2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1))
       rollup: 4.39.0
 
-  '@sveltejs/kit@2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1))':
+  '@sveltejs/kit@2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1))
+      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1))
       '@types/cookie': 0.6.0
       cookie: 0.6.0
       devalue: 5.1.1
@@ -2712,27 +2759,27 @@ snapshots:
       set-cookie-parser: 2.7.1
       sirv: 3.0.1
       svelte: 5.26.1
-      vite: 6.2.6(jiti@1.21.7)(yaml@2.7.1)
+      vite: 6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)
 
-  '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1))':
+  '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1))
+      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1))
       debug: 4.4.0
       svelte: 5.26.1
-      vite: 6.2.6(jiti@1.21.7)(yaml@2.7.1)
+      vite: 6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1))':
+  '@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1))
+      '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.26.1)(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1))
       debug: 4.4.0
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.17
       svelte: 5.26.1
-      vite: 6.2.6(jiti@1.21.7)(yaml@2.7.1)
-      vitefu: 1.0.6(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1))
+      vite: 6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)
+      vitefu: 1.0.6(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -2761,6 +2808,15 @@ snapshots:
   '@types/estree@1.0.7': {}
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/node-fetch@2.6.12':
+    dependencies:
+      '@types/node': 18.19.86
+      form-data: 4.0.2
+
+  '@types/node@18.19.86':
+    dependencies:
+      undici-types: 5.26.5
 
   '@types/resolve@1.20.2': {}
 
@@ -2844,6 +2900,10 @@ snapshots:
   abbrev@1.1.1:
     optional: true
 
+  abort-controller@3.0.0:
+    dependencies:
+      event-target-shim: 5.0.1
+
   acorn-jsx@5.3.2(acorn@8.14.1):
     dependencies:
       acorn: 8.14.1
@@ -2860,7 +2920,6 @@ snapshots:
   agentkeepalive@4.6.0:
     dependencies:
       humanize-ms: 1.2.1
-    optional: true
 
   aggregate-error@3.1.0:
     dependencies:
@@ -3314,6 +3373,8 @@ snapshots:
 
   esutils@2.0.3: {}
 
+  event-target-shim@5.0.1: {}
+
   expand-template@2.0.3: {}
 
   fast-deep-equal@3.1.3: {}
@@ -3369,12 +3430,19 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
+  form-data-encoder@1.7.2: {}
+
   form-data@4.0.2:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       es-set-tostringtag: 2.1.0
       mime-types: 2.1.35
+
+  formdata-node@4.4.1:
+    dependencies:
+      node-domexception: 1.0.0
+      web-streams-polyfill: 4.0.0-beta.3
 
   fraction.js@4.3.7: {}
 
@@ -3504,7 +3572,6 @@ snapshots:
   humanize-ms@1.2.1:
     dependencies:
       ms: 2.1.3
-    optional: true
 
   iconv-lite@0.6.3:
     dependencies:
@@ -3786,6 +3853,8 @@ snapshots:
 
   node-addon-api@7.1.1: {}
 
+  node-domexception@1.0.0: {}
+
   node-fetch@2.7.0(encoding@0.1.13):
     dependencies:
       whatwg-url: 5.0.0
@@ -3835,6 +3904,18 @@ snapshots:
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
+
+  openai@4.93.0(encoding@0.1.13):
+    dependencies:
+      '@types/node': 18.19.86
+      '@types/node-fetch': 2.6.12
+      abort-controller: 3.0.0
+      agentkeepalive: 4.6.0
+      form-data-encoder: 1.7.2
+      formdata-node: 4.4.1
+      node-fetch: 2.7.0(encoding@0.1.13)
+    transitivePeerDependencies:
+      - encoding
 
   optionator@0.9.4:
     dependencies:
@@ -4375,6 +4456,8 @@ snapshots:
 
   typescript@5.8.3: {}
 
+  undici-types@5.26.5: {}
+
   unique-filename@1.1.1:
     dependencies:
       unique-slug: 2.0.2
@@ -4407,19 +4490,22 @@ snapshots:
 
   uuid@10.0.0: {}
 
-  vite@6.2.6(jiti@1.21.7)(yaml@2.7.1):
+  vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1):
     dependencies:
       esbuild: 0.25.2
       postcss: 8.5.3
       rollup: 4.39.0
     optionalDependencies:
+      '@types/node': 18.19.86
       fsevents: 2.3.3
       jiti: 1.21.7
       yaml: 2.7.1
 
-  vitefu@1.0.6(vite@6.2.6(jiti@1.21.7)(yaml@2.7.1)):
+  vitefu@1.0.6(vite@6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)):
     optionalDependencies:
-      vite: 6.2.6(jiti@1.21.7)(yaml@2.7.1)
+      vite: 6.2.6(@types/node@18.19.86)(jiti@1.21.7)(yaml@2.7.1)
+
+  web-streams-polyfill@4.0.0-beta.3: {}
 
   webidl-conversions@3.0.1: {}
 

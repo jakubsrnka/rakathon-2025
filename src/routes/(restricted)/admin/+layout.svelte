@@ -133,7 +133,9 @@
           <DropdownMenu.Item>Settings</DropdownMenu.Item>
           <DropdownMenu.Item>Switch to User</DropdownMenu.Item>
           <DropdownMenu.Separator />
-          <DropdownMenu.Item onclick={handleLogout}>Logout</DropdownMenu.Item>
+          <DropdownMenu.Item href="/app">Switch to user</DropdownMenu.Item>
+          <DropdownMenu.Separator />
+          <DropdownMenu.Item>Logout</DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </header>
