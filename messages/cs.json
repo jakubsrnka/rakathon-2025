@@ -1,5 +1,6 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
+  "admin_patients_selectAPatient": "Select a patient",
   "hello_world": "Hello, {name} from en!",
   "login_citizen_portal": "Identita Občana",
   "login_create_account_button": "Přihlásit se",
@@ -9,6 +10,5 @@
   "login_login_via": "Přihlásit",
   "login_or_continue_with": "Nebo pokračujte s",
   "login_password": "Heslo",
-  "user_login": "Přihlásit se",
-  "admin_patients_selectAPatient": "Select a patient"
+  "user_login": "Přihlásit se"
 }
