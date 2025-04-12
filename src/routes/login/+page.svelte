@@ -4,6 +4,8 @@
   import { Button } from '$components/ui/button';
   import { Label } from '$components/ui/label';
   import { m } from '$lib/paraglide/messages';
+
+  let target = "/app";
 </script>
 
 <div class="flex h-screen items-center justify-center">
@@ -14,7 +16,7 @@
     </Card.Header>
     <Card.Content class="grid gap-4">
       <div class="grid grid-cols-1 gap-6">
-        <Button variant="outline" class="h-16" href="/user">
+        <Button variant="outline" class="h-16" href={target}>
           <img
             src="/assets/indentita-obcana-logo.png"
             alt="Indentita Obcana Logo"
@@ -41,7 +43,7 @@
       </div>
     </Card.Content>
     <Card.Footer>
-      <Button class="w-full" href="/user">{m.login_create_account_button()}</Button>
+      <Button class="w-full" href={target}>{m.login_create_account_button()}</Button>
     </Card.Footer>
   </Card.Root>
 </div>
