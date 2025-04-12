@@ -122,6 +122,8 @@
           <DropdownMenu.Separator />
           <DropdownMenu.Item>Settings</DropdownMenu.Item>
           <DropdownMenu.Separator />
+          <DropdownMenu.Item href="/app">Switch to user</DropdownMenu.Item>
+          <DropdownMenu.Separator />
           <DropdownMenu.Item>Logout</DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>

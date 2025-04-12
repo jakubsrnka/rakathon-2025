@@ -3,7 +3,7 @@
   import * as Story from '$components/stories';
 </script>
 
-<Story.Wrapper length={2} onend={() => goto('/user')}>
+<Story.Wrapper length={2} onend={() => goto('/app')}>
   <Story.Root class="bg-red-500">
     <div class="flex h-14 min-h-svh flex-col gap-4 border-b p-4 lg:h-[60px] lg:px-6">
       <h1 class="text-lg font-semibold">Tuto je Story 1</h1>
