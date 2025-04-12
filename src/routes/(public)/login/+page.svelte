@@ -24,8 +24,8 @@
         currentUser.set(record as AuthRecord);
         toast.success('Login successful');
         if (record.role === 'admin') {
-          goto('/admin/patients');
-        } else if (record.role === 'user') {
+          goto('/admin');
+        } else {
           goto('/user');
         }
       }

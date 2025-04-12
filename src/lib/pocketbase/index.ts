@@ -1,5 +1,5 @@
 import PocketBase, { type AuthRecord } from 'pocketbase';
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 import { PUBLIC_PB_URL } from '$env/static/public';
 import { type TypedPocketBase } from '$types/pocketbase';
 
@@ -16,3 +16,7 @@ export const currentUser = writable<AuthRecord>(pbClient.authStore.record);
 pbClient.authStore.onChange((_, record) => {
   currentUser.set(record);
 });
+
+export const isLoggedIn = () => {
+  return !!get(currentUser)?.role;
+};

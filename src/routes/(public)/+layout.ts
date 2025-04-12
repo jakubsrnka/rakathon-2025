@@ -1,12 +1,11 @@
 import type { LayoutLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
-import { currentUser } from '$lib/pocketbase';
+import { currentUser, isLoggedIn } from '$lib/pocketbase';
+import { get } from 'svelte/store';
 
 export const load: LayoutLoad = async () => {
-  currentUser.subscribe((user) => {
-    if (user) {
-      if (user.role !== 'admin') throw redirect(302, '/app');
-      throw redirect(302, '/admin');
-    }
-  });
+  if (isLoggedIn()) {
+    if (get(currentUser)?.role === 'user') throw redirect(303, '/app');
+    throw redirect(303, '/admin');
+  }
 };
