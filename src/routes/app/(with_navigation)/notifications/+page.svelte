@@ -11,4 +11,5 @@
     date="Před 1 dnem"
   />
   <CustomNotification title="Go to login page" content="" link="/login" />
+  <CustomNotification title="Go to flyers" content="" link="/app/flyers" />
 </Wrapper>
