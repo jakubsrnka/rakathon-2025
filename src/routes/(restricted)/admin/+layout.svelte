@@ -27,16 +27,14 @@
   }
 </script>
 
-<div class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+<div class="grid min-h-screen w-svw max-w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
   <div class="hidden border-r bg-muted/40 md:block">
     <div class="flex h-full max-h-screen flex-col gap-2">
       <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
         <a href="/" class="flex items-center gap-2 font-semibold">
           <Package2 class="h-6 w-6" />
           <span class="">
-            {$currentUser?.name}
-            &nbsp;
-            {$currentUser?.surname}
+            {$currentUser?.name}&nbsp;{$currentUser?.surname}
           </span>
         </a>
         <Button variant="outline" size="icon" class="ml-auto h-8 w-8">
@@ -139,7 +137,7 @@
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </header>
-    <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+    <main class="max-w-svw flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
       {@render children()}
     </main>
   </div>

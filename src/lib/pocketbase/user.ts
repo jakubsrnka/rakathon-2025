@@ -1,8 +1,8 @@
-import type { DemoUser } from '$types/user';
+import type { UsersDemo } from '$types/user';
 import { Collections } from '$types/pocketbase';
 import { pbClient } from '$lib/pocketbase';
 
-export const createUser = async (user: DemoUser) => {
+export const createUser = async (user: UsersDemo) => {
   try {
     const response = await pbClient.collection(Collections.Users).create(user);
     console.log('Created user:', response);

@@ -9,9 +9,10 @@
   import { cn } from '$lib/utils.js';
   import { Textarea } from '$components/ui/textarea';
   import { createUser } from '$lib/pocketbase/user';
-  import { UsersRoleOptions, type UsersRecord, type UsersResponse } from '$types/pocketbase';
+  import { UsersRoleOptions } from '$types/pocketbase';
   import type { UsersCreate } from '$types/user';
   import Badge from '$components/ui/badge/badge.svelte';
+  import { m } from '$lib/paraglide/messages';
 
   let { data }: { data: PageData } = $props();
 
@@ -20,8 +21,10 @@
   let selectedValue = $state('');
 
   $effect(() => {
-    selectedValue =
-      data.demoApi.find((f) => f.birth_number === value)?.birth_number ?? 'Select patient';
+    const selectedPatient = data.demoApi.find((f) => f.birth_number === value);
+    selectedValue = selectedPatient
+      ? `${selectedPatient.title_before ?? ''} ${selectedPatient.name} ${selectedPatient.surname} ${selectedPatient.title_after ?? ''}`
+      : m.admin_patients_selectAPatient();
   });
 
   function closeAndFocusTrigger(triggerId: string) {
@@ -40,15 +43,18 @@
     try {
       if (!data.usersResponse.find((f) => f.birth_number === patient)) {
         const patientData = data.demoApi.find((f) => f.birth_number === patient);
+        if (!patientData) {
+          throw new Error('Patient not found');
+        }
         const password = Math.random().toString(36).slice(2, 66);
         const user: UsersCreate = {
-          email: patientData?.email ?? '',
-          name: patientData?.name ?? '',
+          email: patientData.email,
+          name: patientData.name,
           password,
           passwordConfirm: password,
           role: UsersRoleOptions.user,
-          birth_number: patientData?.birth_number ?? '',
-          surname: patientData?.surname ?? ''
+          birth_number: patientData.birth_number,
+          surname: patientData.surname
         };
         await createUser(user);
       }
@@ -58,7 +64,7 @@
   }
 </script>
 
-<form onsubmit={handleSubmit}>
+<form onsubmit={handleSubmit} class="mx-auto flex w-full max-w-[max(50%,512px)] flex-col gap-4">
   <Popover.Root bind:open let:ids>
     <Popover.Trigger asChild let:builder>
       <Button
@@ -66,13 +72,13 @@
         variant="outline"
         role="combobox"
         aria-expanded={open}
-        class="w-[400px] justify-between"
+        class="w-full justify-between"
       >
         {selectedValue}
         <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
       </Button>
     </Popover.Trigger>
-    <Popover.Content class="w-[400px] p-0">
+    <Popover.Content class="w-full max-w-[min(512px,90vw)] p-0">
       <Command.Root>
         <Command.Input placeholder="Search by birth number" />
         <Command.Empty>No patient.</Command.Empty>

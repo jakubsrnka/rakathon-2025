@@ -9,5 +9,6 @@
   "login_login_via": "Přihlásit",
   "login_or_continue_with": "Nebo pokračujte s",
   "login_password": "Heslo",
-  "user_login": "Přihlásit se"
+  "user_login": "Přihlásit se",
+  "admin_patients_selectAPatient": "Select a patient"
 }

@@ -1,12 +1,14 @@
 import { pbClient } from '$lib/pocketbase';
-import type { DemoUser } from '$types/user';
-import { Collections } from '$types/pocketbase';
+import type { UsersDemo } from '$types/user';
+import { Collections, type UsersResponse } from '$types/pocketbase';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch }) => {
   try {
-    const usersResponse = await pbClient.collection(Collections.Users).getFullList({ fetch });
-    const users = usersResponse.map(
+    const usersResponse = await pbClient
+      .collection(Collections.Users)
+      .getFullList<UsersResponse>({ fetch });
+    const users: UsersDemo[] = usersResponse.map(
       (user) =>
         ({
           id: user.id,
@@ -16,9 +18,9 @@ export const load: PageLoad = async ({ fetch }) => {
           birth_number: user.birth_number,
           title_before: user.title_before,
           title_after: user.title_after
-        }) as DemoUser
+        }) as UsersDemo
     );
-    const demoApi: DemoUser[] = [
+    const demoApi: UsersDemo[] = [
       {
         birth_number: '840305/1234',
         email: 'jana.novakova@rakathon.cz',
@@ -45,7 +47,7 @@ export const load: PageLoad = async ({ fetch }) => {
         email: 'tomas.cerny@rakathon.cz',
         name: 'Tomáš',
         surname: 'Černý',
-        title_after: 'PhD.'
+        title_after: 'Ph.D.'
       },
       {
         birth_number: '720415/3456',

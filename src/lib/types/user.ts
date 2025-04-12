@@ -1,6 +1,6 @@
 import type { UsersRecord } from '$types/pocketbase';
 
-export type DemoUser = {
+export type UsersDemo = {
   birth_number: string;
   email: string;
   name: string;
