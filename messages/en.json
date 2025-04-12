@@ -1,6 +1,17 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
+  "asd": "Go to login page",
   "error_back": "Back",
   "error_error": "Error",
-  "hello_world": "Hello, {name} from en!"
+  "locale_date_string": "en-US",
+  "login_citizen_portal": "Citizen Identity",
+  "login_create_account_button": "Sign In",
+  "login_email": "Email",
+  "login_enter_email": "Sign in using Citizen Identity",
+  "login_example_email": "example@gmail.com",
+  "login_login_via": "Sign In",
+  "login_or_continue_with": "Or continue with",
+  "login_password": "Password",
+  "user_flyers": "Flyers",
+  "user_login": "Sign In"
 }
