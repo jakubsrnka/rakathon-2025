@@ -1,5 +1,12 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
+  "flyer_new_language": "Jazyk",
+  "flyer_new_medication": "Léčivo",
+  "flyer_new_prompt": "Poznámky",
+  "flyer_new_save": "Uložit letáček",
+  "flyer_new_submit": "Do the magic",
+  "flyer_new_tag": "Přidat štítek",
+  "flyers_new": "Nový letáček",
   "hello_world": "Hello, {name} from en!",
   "login_citizen_portal": "Identita Občana",
   "login_create_account_button": "Přihlásit se",
