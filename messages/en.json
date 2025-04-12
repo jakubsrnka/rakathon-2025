@@ -1,6 +1,5 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "asd": "Go to login page",
   "error_back": "Back",
   "error_error": "Error",
   "locale_date_string": "en-US",
