@@ -1,5 +1,5 @@
 import { pbClient } from '$lib/pocketbase';
-import type { DemoUser } from '$types/demoUser';
+import type { DemoUser } from '$types/user';
 import { Collections } from '$types/pocketbase';
 import type { PageLoad } from './$types';
 
@@ -18,10 +18,10 @@ export const load: PageLoad = async ({ fetch }) => {
           title_after: user.title_after
         }) as DemoUser
     );
-    let demoApi: DemoUser[] = [
+    const demoApi: DemoUser[] = [
       {
         birth_number: '840305/1234',
-        email: 'jana.novakova@example.com',
+        email: 'jana.novakova@rakathon.cz',
         name: 'Jana',
         surname: 'Nováková',
         title_before: 'Bc.',
@@ -29,40 +29,40 @@ export const load: PageLoad = async ({ fetch }) => {
       },
       {
         birth_number: '750921/5678',
-        email: 'petr.kral@example.com',
+        email: 'petr.kral@rakathon.cz',
         name: 'Petr',
         surname: 'Král'
       },
       {
         birth_number: '930112/2345',
-        email: 'eva.svobodova@example.com',
+        email: 'eva.svobodova@rakathon.cz',
         name: 'Eva',
         surname: 'Svobodová',
         title_before: 'Mgr.'
       },
       {
         birth_number: '681223/7890',
-        email: 'tomas.cerny@example.com',
+        email: 'tomas.cerny@rakathon.cz',
         name: 'Tomáš',
         surname: 'Černý',
         title_after: 'PhD.'
       },
       {
         birth_number: '720415/3456',
-        email: 'lucie.prochazkova@example.com',
+        email: 'lucie.prochazkova@rakathon.cz',
         name: 'Lucie',
         surname: 'Procházková'
       },
       {
         birth_number: '891106/4567',
-        email: 'marek.horak@example.com',
+        email: 'marek.horak@rakathon.cz',
         name: 'Marek',
         surname: 'Horák',
         title_before: 'Ing.'
       },
       {
         birth_number: '770318/6789',
-        email: 'barbora.benesova@example.com',
+        email: 'barbora.benesova@rakathon.cz',
         name: 'Barbora',
         surname: 'Benešová'
       }

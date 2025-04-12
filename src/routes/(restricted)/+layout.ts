@@ -10,8 +10,7 @@ export const load: LayoutLoad = async ({ fetch }) => {
     } catch {
       pbClient.authStore.clear();
     }
+  } else {
+    redirect(307, '/login');
   }
-  // } else {
-  //   redirect(307, '/login');
-  // }
 };

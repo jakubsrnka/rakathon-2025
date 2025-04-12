@@ -9,8 +9,9 @@
   import { cn } from '$lib/utils.js';
   import { Textarea } from '$components/ui/textarea';
   import { createUser } from '$lib/pocketbase/user';
-  import { UsersRoleOptions, type UsersRecord } from '$types/pocketbase';
-  import type { DemoUser } from '$types/demoUser';
+  import { UsersRoleOptions, type UsersRecord, type UsersResponse } from '$types/pocketbase';
+  import type { UsersCreate } from '$types/user';
+  import Badge from '$components/ui/badge/badge.svelte';
 
   let { data }: { data: PageData } = $props();
 
@@ -39,10 +40,12 @@
     try {
       if (!data.usersResponse.find((f) => f.birth_number === patient)) {
         const patientData = data.demoApi.find((f) => f.birth_number === patient);
-        const user: DemoUser = {
+        const password = Math.random().toString(36).slice(2, 66);
+        const user: UsersCreate = {
           email: patientData?.email ?? '',
           name: patientData?.name ?? '',
-          password: '12345678',
+          password,
+          passwordConfirm: password,
           role: UsersRoleOptions.user,
           birth_number: patientData?.birth_number ?? '',
           surname: patientData?.surname ?? ''
@@ -81,13 +84,19 @@
                 value = currentValue;
                 closeAndFocusTrigger(ids.trigger);
               }}
+              class="align flex items-center"
             >
               <Check
                 class={cn('mr-2 h-4 w-4', value !== person.birth_number && 'text-transparent')}
               />
-              {person.birth_number}
+              {person.title_before}
               {person.name}
               {person.surname}
+              {person.title_after}
+
+              <Badge class="ml-auto mr-2">
+                {person.birth_number}
+              </Badge>
             </Command.Item>
           {/each}
         </Command.Group>

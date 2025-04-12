@@ -1,5 +1,5 @@
 import PocketBase, { type AuthRecord } from 'pocketbase';
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { PUBLIC_PB_URL } from '$env/static/public';
 import { type TypedPocketBase } from '$types/pocketbase';
 
