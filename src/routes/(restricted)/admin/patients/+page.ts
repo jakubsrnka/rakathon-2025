@@ -6,7 +6,19 @@ import type { PageLoad } from './$types';
 export const load: PageLoad = async ({ fetch }) => {
   try {
     const usersResponse = await pbClient.collection(Collections.Users).getFullList({ fetch });
-    const demoApi: DemoUser[] = [
+    const users = usersResponse.map(
+      (user) =>
+        ({
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          surname: user.surname,
+          birth_number: user.birth_number,
+          title_before: user.title_before,
+          title_after: user.title_after
+        }) as DemoUser
+    );
+    let demoApi: DemoUser[] = [
       {
         birth_number: '840305/1234',
         email: 'jana.novakova@example.com',
@@ -53,28 +65,16 @@ export const load: PageLoad = async ({ fetch }) => {
         email: 'barbora.benesova@example.com',
         name: 'Barbora',
         surname: 'Benešová'
-      },
-      {
-        birth_number: '800902/1357',
-        email: 'jan.kucera@example.com',
-        name: 'Jan',
-        surname: 'Kučera',
-        title_after: 'DiS.'
-      },
-      {
-        birth_number: '950701/2468',
-        email: 'anna.vesela@example.com',
-        name: 'Anna',
-        surname: 'Veselá'
-      },
-      {
-        birth_number: '660212/9876',
-        email: 'martin.dvorak@example.com',
-        name: 'Martin',
-        surname: 'Dvořák',
-        title_before: 'JUDr.'
       }
     ];
+
+    users.forEach((user) => {
+      const existingUser = demoApi.find((demo) => demo.birth_number === user.birth_number);
+      if (!existingUser) {
+        demoApi.push(user);
+      }
+    });
+
     return { usersResponse, demoApi };
   } catch {
     console.log('Error fetching users');

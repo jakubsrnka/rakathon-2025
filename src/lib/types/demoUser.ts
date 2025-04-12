@@ -1,3 +1,5 @@
+import type { UsersRoleOptions } from './pocketbase';
+
 export type DemoUser = {
   birth_number: string;
   email: string;
@@ -5,4 +7,6 @@ export type DemoUser = {
   surname: string;
   title_after?: string;
   title_before?: string;
+  password?: string;
+  role?: UsersRoleOptions;
 };

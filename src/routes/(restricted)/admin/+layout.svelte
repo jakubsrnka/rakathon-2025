@@ -11,7 +11,7 @@
   import * as DropdownMenu from '$components/ui/dropdown-menu/index.js';
   import { Input } from '$components/ui/input/index.js';
   import * as Sheet from '$components/ui/sheet/index.js';
-  import { currentUser, pbClient } from '$lib/pocketbase';
+  import { currentUser, pbClient } from '$lib/pocketbase/';
 
   import { page } from '$app/state';
   import { goto } from '$app/navigation';

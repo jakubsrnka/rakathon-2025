@@ -1,5 +1,5 @@
 import type { LayoutLoad } from './$types';
-import { pbClient } from '$lib/pocketbase';
+import { pbClient } from '$lib/pocketbase/';
 import { Collections } from '$types/pocketbase';
 import { redirect } from '@sveltejs/kit';
 

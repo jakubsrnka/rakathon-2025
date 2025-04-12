@@ -4,10 +4,11 @@
   import { Button } from '$components/ui/button';
   import { Label } from '$components/ui/label';
   import { m } from '$lib/paraglide/messages';
-  import { currentUser, pbClient } from '$lib/pocketbase';
+  import { currentUser, pbClient } from '$lib/pocketbase/';
   import { toast } from 'svelte-sonner';
   import { goto } from '$app/navigation';
   import { Collections } from '$types/pocketbase';
+  import type { AuthRecord } from 'pocketbase';
 
   const handleLogin = async (event: SubmitEvent) => {
     event.preventDefault();
@@ -20,7 +21,7 @@
         .collection(Collections.Users)
         .authWithPassword(email, password);
       if (record) {
-        currentUser.set(record);
+        currentUser.set(record as AuthRecord);
         toast.success('Login successful');
         if (record.role === 'admin') {
           goto('/admin/patients');
