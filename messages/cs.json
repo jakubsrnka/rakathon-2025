@@ -1,5 +1,6 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
+  "admin_patients_selectAPatient": "Select a patient",
   "app_flyers_loading_flyer": "Načítám zprávu",
   "app_home_selfEducation": "Sebevzdělávání",
   "app_home_selfEducationButton": "Chci se dozvědět více",

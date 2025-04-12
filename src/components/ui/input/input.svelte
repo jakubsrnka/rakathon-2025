@@ -11,7 +11,7 @@
   let className: $$Props['class'] = undefined;
   export let value: $$Props['value'] = undefined;
   export { className as class };
-  export let use: $$Props['use'] = (node: HTMLInputElement) => {};
+  export let use: $$Props['use'] = (_: HTMLInputElement) => {};
 
   const useNode = (node: HTMLInputElement) => {
     if (use) {

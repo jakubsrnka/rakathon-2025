@@ -161,7 +161,7 @@
         type="text"
         class="border-none text-2xl font-bold shadow-none"
       />
-      {#each flyer.slides as slide, index}
+      {#each flyer.slides as slide, index (index)}
         <li class="flex items-center gap-2">
           <Input
             bind:value={slide.title}
@@ -174,7 +174,7 @@
           </Button>
         </li>
         <ul class="flex flex-col gap-1">
-          {#each slide.content as line, jindex}
+          {#each slide.content as _, jindex (jindex)}
             <li class="flex items-center gap-2 before:content-['-']">
               <Input
                 bind:value={slide.content[jindex]}
@@ -214,15 +214,13 @@
       </Button>
       <Separator class="my-2" />
       <div class="flex gap-2">
-        {#each flyer.tags as _, index}
-          <div class="">
-            <Input
-              bind:value={flyer.tags[index]}
-              type="text"
-              class="inline h-auto min-h-0 w-32 border-none bg-primary text-xs leading-none text-secondary shadow-none"
-              use={adjustWidth}
-            />
-          </div>
+        {#each flyer.tags as _, index (index)}
+          <Input
+            bind:value={flyer.tags[index]}
+            type="text"
+            class="inline h-auto min-h-0 w-32 border-none bg-primary text-xs leading-none text-secondary shadow-none"
+            use={adjustWidth}
+          />
         {/each}
         <Badge onclick={() => flyer.tags.push('')}>
           <Plus class="mr-2" size={12} />
