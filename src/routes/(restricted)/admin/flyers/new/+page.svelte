@@ -8,7 +8,7 @@
   import Separator from '$components/ui/separator/separator.svelte';
   import { m } from '$lib/paraglide/messages';
   import type { Flyer } from '$types/flyers';
-  import { Plus, WandSparkles, X } from '@lucide/svelte';
+  import { Plus, WandSparkles, X, Minus } from '@lucide/svelte';
 
   let prompt: string | undefined = $state(undefined);
   let language: {
@@ -162,21 +162,32 @@
         class="border-none text-2xl font-bold shadow-none"
       />
       {#each flyer.slides as slide, index (index)}
-        <Input bind:value={slide.title} type="text" class="bold border-none text-lg shadow-none" />
+        <li class="flex items-center gap-2">
+          <Input
+            bind:value={slide.title}
+            type="text"
+            placeholder={m.flyer_new_placeholderHeading()}
+            class="bold border-none text-lg shadow-none"
+          />
+          <Button variant="outline" class="w-9 p-2" onclick={() => flyer.slides.splice(index, 1)}>
+            <X />
+          </Button>
+        </li>
         <ul class="flex flex-col gap-1">
           {#each slide.content as _, jindex (jindex)}
             <li class="flex items-center gap-2 before:content-['-']">
               <Input
                 bind:value={slide.content[jindex]}
                 type="text"
+                placeholder={m.flyer_new_placeholderContent()}
                 class="inline border-none pl-1 shadow-none"
               />
               <Button
                 variant="outline"
-                class="w-9 p-2"
+                class="aspect-square w-9 p-2"
                 onclick={() => slide.content.splice(jindex, 1)}
               >
-                <X />
+                <Minus />
               </Button>
             </li>
           {/each}
