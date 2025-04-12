@@ -2,17 +2,15 @@
   import * as Alert from '$components/ui/alert';
   import { cn } from '$lib/utils';
   import { Bell } from '@lucide/svelte';
-  import type { Snippet } from 'svelte';
+  import { m } from '$lib/paraglide/messages';
   let {
     class: className = '',
-    children,
     link,
     title,
     content,
     date
   }: {
     class?: string;
-    children?: Snippet;
     link: string;
     title: string;
     content?: string;
@@ -21,8 +19,17 @@
 </script>
 
 <div class={cn('', className)}>
+  {#if date}
+    <h1 class="p-1 text-xl font-bold">
+      {new Date(date).toLocaleDateString(m.localeDateString(), {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      })}
+    </h1>
+  {/if}
   <a href={link}>
-    <Alert.Root class="shadow">
+    <Alert.Root class=" flex  min-h-14 shadow">
       <div class="flex items-center">
         <div class="flex-shrink-0">
           <!-- TODO add more icons -->
@@ -34,9 +41,6 @@
             <Alert.Description>{content}</Alert.Description>
           {:else}
             <Alert.Title>{title}</Alert.Title>
-          {/if}
-          {#if date}
-            <Alert.Description class="italic">{date}</Alert.Description>
           {/if}
         </div>
       </div>
