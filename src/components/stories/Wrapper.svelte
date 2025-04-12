@@ -7,10 +7,12 @@
   let {
     length = $bindable(20),
     time = $bindable(0),
+    stopped = $bindable(false),
     onend: onParentEnd = $bindable(() => {}),
     onbegin: onParentBegin = $bindable(() => {}),
     children
   }: {
+    stopped?: boolean;
     length?: number;
     time?: number;
     onend?: () => void;
@@ -21,7 +23,6 @@
   let count = $state(0);
   let active = $state(0);
   let viewState = $state(0);
-  let stopped = $state(false);
 
   const onbegin = () => {};
   const onend = () => {
@@ -60,6 +61,11 @@
     if (onParentBegin) onParentBegin();
     const finalTime = length * count;
     const interval = setInterval(() => {
+      if (stopped) {
+        console.log('stopped');
+
+        return;
+      }
       if (time <= finalTime) {
         time += INTERVAL / 1000;
 

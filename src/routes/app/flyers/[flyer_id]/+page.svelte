@@ -9,6 +9,12 @@
 
   let storyDuration: number = 3; // seconds
 
+  let isStopped = $state(false);
+
+  function transformFlyerData(data: { heading: string; content: string }[][]): string[][] {
+    return data.map((section) => section.flatMap((item) => [item.heading, item.content]));
+  }
+
   async function load(id: string) {
     // TODO : Replace with real data from pocketbase
     const data = [
@@ -41,12 +47,16 @@
         { heading: 'Page 3', content: 'Flyer content for ID 3' }
       ]
     ];
+    const transformedData = transformFlyerData(data);
+
     const flyer = data[parseInt(id) - 1];
+
     if (!flyer) {
       throw error(404, 'Flyer not found');
     }
     return {
-      flyer
+      flyer,
+      transformedData
     };
   }
 </script>
@@ -57,15 +67,26 @@
       {m.app_flyers_loading_flyer()}
     </Story.Root>
   </Story.Wrapper>
-{:then { flyer }}
-  <Story.Wrapper length={flyer.length * storyDuration} onend={() => goto('/app/notifications')}>
+{:then { flyer, transformedData }}
+  <Story.Wrapper
+    bind:stopped={isStopped}
+    length={flyer.length * storyDuration}
+    onend={() => goto('/app/notifications')}
+  >
     {#each flyer as { heading, content }}
-      <Story.Root class="bg-red-500">
+      <Story.Root bind:stopped={isStopped} class="bg-red-500">
         <div class="flex flex-col gap-4 p-4 lg:h-[60px] lg:px-6">
           <h1 class="text-3xl font-semibold">{heading}</h1>
           <h1 class="text-lg font-semibold">{content}</h1>
         </div>
       </Story.Root>
+    {/each}
+    {#each transformedData as section}
+      <div class="flex flex-col gap-4 p-4 lg:h-[60px] lg:px-6">
+        {#each section as item}
+          <h1 class="text-lg font-semibold">{item}</h1>
+        {/each}
+      </div>
     {/each}
   </Story.Wrapper>
 {/await}
