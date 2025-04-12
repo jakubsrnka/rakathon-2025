@@ -21,6 +21,6 @@
       <Button class="mt-4">Zobrazit léčbu</Button>
     </div>
 
-    <Button class="bg-grey">Změnit na admina</Button>
+    <Button class="mt-4 bg-red-500 text-white hover:bg-red-600" href="/admin">Změnit na admina</Button>
   </section>
 </Wrapper>
