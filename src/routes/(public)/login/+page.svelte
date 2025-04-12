@@ -9,6 +9,7 @@
   import { goto } from '$app/navigation';
   import { Collections } from '$types/pocketbase';
   import type { AuthRecord } from 'pocketbase';
+  import * as MockupIdentityLogin from '$lib/mockup-identity-login';
 
   const handleLogin = async (event: SubmitEvent) => {
     event.preventDefault();
@@ -44,7 +45,7 @@
     <form class="flex flex-col gap-4" onsubmit={handleLogin}>
       <Card.Content class="grid gap-4">
         <div class="grid grid-cols-1 gap-6">
-          <Button variant="outline" class="h-16" href="/app">
+          <Button variant="outline" class="h-16" on:click={() => MockupIdentityLogin.login()}>
             <img
               src="/assets/indentita-obcana-logo.png"
               alt="Indentita Obcana Logo"
