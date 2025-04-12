@@ -83,7 +83,7 @@
         <Command.Input placeholder="Search by birth number" />
         <Command.Empty>No patient.</Command.Empty>
         <Command.Group>
-          {#each data.demoApi as person}
+          {#each data.demoApi as person, index (index)}
             <Command.Item
               value={person.birth_number}
               onSelect={(currentValue: string) => {

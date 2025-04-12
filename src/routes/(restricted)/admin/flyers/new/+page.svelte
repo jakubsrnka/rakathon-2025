@@ -161,10 +161,10 @@
         type="text"
         class="border-none text-2xl font-bold shadow-none"
       />
-      {#each flyer.slides as slide, index}
+      {#each flyer.slides as slide, index (index)}
         <Input bind:value={slide.title} type="text" class="bold border-none text-lg shadow-none" />
         <ul class="flex flex-col gap-1">
-          {#each slide.content as line, jindex}
+          {#each slide.content as _, jindex (jindex)}
             <li class="flex items-center gap-2 before:content-['-']">
               <Input
                 bind:value={slide.content[jindex]}
@@ -203,7 +203,7 @@
       </Button>
       <Separator class="my-2" />
       <div class="flex gap-2">
-        {#each flyer.tags as _, index}
+        {#each flyer.tags as _, index (index)}
           <Input
             bind:value={flyer.tags[index]}
             type="text"

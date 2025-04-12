@@ -14,7 +14,7 @@
     class:shadow={currentPathSegments[1] !== 'home'}
   >
     <div class="mx-auto flex h-full w-full max-w-screen-sm items-center justify-between">
-      <a href="/app/home" class="flex h-full w-full items-center justify-center">
+      <a href="/app" class="flex h-full w-full items-center justify-center">
         <Home color={currentPathSegments[1] === 'home' ? 'black' : 'grey'} />
       </a>
       <a href="/app/notifications" class="flex h-full w-full items-center justify-center">

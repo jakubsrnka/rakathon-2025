@@ -26,7 +26,7 @@
         if (record.role === 'admin') {
           goto('/admin');
         } else {
-          goto('/user');
+          goto('/app');
         }
       }
     } catch {
@@ -38,19 +38,19 @@
 <div class="flex h-screen items-center justify-center">
   <Card.Root class="w-[90%] max-w-80">
     <Card.Header class="space-y-1">
-      <Card.Title class="text-2xl">{m.login_login_via()}</Card.Title>
-      <Card.Description>{m.login_enter_email()}</Card.Description>
+      <Card.Title class="text-2xl">{m.login_loginVia()}</Card.Title>
+      <Card.Description>{m.login_enterEmail()}</Card.Description>
     </Card.Header>
     <form class="flex flex-col gap-4" onsubmit={handleLogin}>
       <Card.Content class="grid gap-4">
         <div class="grid grid-cols-1 gap-6">
-          <Button variant="outline" class="h-16" href="/user">
+          <Button variant="outline" class="h-16" href="/app">
             <img
               src="/assets/indentita-obcana-logo.png"
               alt="Indentita Obcana Logo"
               class="h-8 w-auto"
             />
-            {m.login_citizen_portal()}
+            {m.login_citizenPortal()}
           </Button>
         </div>
         <div class="relative">
@@ -58,12 +58,12 @@
             <span class="w-full border-t"></span>
           </div>
           <div class="relative flex justify-center text-xs uppercase">
-            <span class="bg-card px-2 text-muted-foreground">{m.login_or_continue_with()}</span>
+            <span class="bg-card px-2 text-muted-foreground">{m.login_orContinueWith()}</span>
           </div>
         </div>
         <div class="grid gap-2">
           <Label for="email">{m.login_email()}</Label>
-          <Input id="email" name="email" type="email" placeholder={m.login_example_email()} />
+          <Input id="email" name="email" type="email" placeholder={m.login_exampleEmail()} />
         </div>
         <div class="grid gap-2">
           <Label for="password">{m.login_password()}</Label>
@@ -71,7 +71,7 @@
         </div>
       </Card.Content>
       <Card.Footer>
-        <Button class="w-full" type="submit">{m.login_create_account_button()}</Button>
+        <Button class="w-full" type="submit">{m.login_createAccountButton()}</Button>
       </Card.Footer>
     </form>
   </Card.Root>

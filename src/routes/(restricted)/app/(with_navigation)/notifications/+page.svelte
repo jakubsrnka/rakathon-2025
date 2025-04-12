@@ -13,7 +13,7 @@
   <CustomNotification
     title="Mudr. Petr Novák Vám poslal zprávu"
     content="posílám vám informace k Vaší léčbě"
-    link="/app/home"
+    link="/app"
     date="2023-02-25"
   />
 </Wrapper>

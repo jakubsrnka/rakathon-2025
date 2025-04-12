@@ -38,19 +38,19 @@
     bind:stopped={isStopped}
     onend={() => goto('/app/notifications')}
   >
-    {#each flyer.slides as slide}
+    {#each flyer.slides as slide, index (index)}
       <Story.Root bind:stopped={isStopped}>
         <div class="flex flex-col gap-4 p-4">
           {#if !isStopped}
             <h1 class="text-3xl font-semibold">{slide.title}</h1>
-            {#each slide.content as text}
+            {#each slide.content as text, index (index)}
               <p>{text}</p>
             {/each}
           {:else}
             <div class="mb-24 flex flex-col gap-4">
-              {#each flyer.slides as slide}
+              {#each flyer.slides as slide, index (index)}
                 <h1 class="text-3xl font-semibold">{slide.title}</h1>
-                {#each slide.content as text}
+                {#each slide.content as text, index (index)}
                   <p>{text}</p>
                 {/each}
               {/each}
