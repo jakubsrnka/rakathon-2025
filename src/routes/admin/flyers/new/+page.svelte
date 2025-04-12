@@ -8,7 +8,7 @@
   import Separator from '$components/ui/separator/separator.svelte';
   import { m } from '$lib/paraglide/messages';
   import type { Flyer } from '$types/flyers';
-  import { Plus, WandSparkles, X } from '@lucide/svelte';
+  import { Plus, WandSparkles, X, Minus } from '@lucide/svelte';
 
   let prompt: string | undefined = $state(undefined);
   let language: {
@@ -162,21 +162,32 @@
         class="border-none text-2xl font-bold shadow-none"
       />
       {#each flyer.slides as slide, index}
-        <Input bind:value={slide.title} type="text" class="bold border-none text-lg shadow-none" />
+        <li class="flex items-center gap-2">
+          <Input
+            bind:value={slide.title}
+            type="text"
+            placeholder={m.flyer_new_placeholderHeading()}
+            class="bold border-none text-lg shadow-none"
+          />
+          <Button variant="outline" class="w-9 p-2" onclick={() => flyer.slides.splice(index, 1)}>
+            <X />
+          </Button>
+        </li>
         <ul class="flex flex-col gap-1">
           {#each slide.content as line, jindex}
             <li class="flex items-center gap-2 before:content-['-']">
               <Input
                 bind:value={slide.content[jindex]}
                 type="text"
+                placeholder={m.flyer_new_placeholderContent()}
                 class="inline border-none pl-1 shadow-none"
               />
               <Button
                 variant="outline"
-                class="w-9 p-2"
+                class="aspect-square w-9 p-2"
                 onclick={() => slide.content.splice(jindex, 1)}
               >
-                <X />
+                <Minus />
               </Button>
             </li>
           {/each}
@@ -204,12 +215,14 @@
       <Separator class="my-2" />
       <div class="flex gap-2">
         {#each flyer.tags as _, index}
-          <Input
-            bind:value={flyer.tags[index]}
-            type="text"
-            class="inline h-auto min-h-0 w-32 border-none bg-primary text-xs leading-none text-secondary shadow-none"
-            use={adjustWidth}
-          />
+          <div class="">
+            <Input
+              bind:value={flyer.tags[index]}
+              type="text"
+              class="inline h-auto min-h-0 w-32 border-none bg-primary text-xs leading-none text-secondary shadow-none"
+              use={adjustWidth}
+            />
+          </div>
         {/each}
         <Badge onclick={() => flyer.tags.push('')}>
           <Plus class="mr-2" size={12} />

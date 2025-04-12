@@ -20,6 +20,8 @@
   "error_error": "Chyba",
   "flyer_new_language": "Jazyk",
   "flyer_new_medication": "Léčivo",
+  "flyer_new_placeholderContent": "Řádek",
+  "flyer_new_placeholderHeading": "Nadpis",
   "flyer_new_prompt": "Poznámky",
   "flyer_new_save": "Uložit letáček",
   "flyer_new_submit": "Do the magic",
