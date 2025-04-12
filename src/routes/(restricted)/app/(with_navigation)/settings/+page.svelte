@@ -33,9 +33,10 @@
         variant="outline"
         size="icon"
         title={m.app_settings_systemDefaultHint()}
-      >oon class="absolute h-[1.2rem] w-[1.2rem] transition-all" />
-        <span class="sr-only">{m.app_settings_systemDefaultHint()}</span>
+      >
+        <SunMoon class="h-[1.2rem] w-[1.2rem]" />
       </Button>
+      <span class="sr-only">{m.app_settings_systemDefaultHint()}</span>
     </div>
   </div>
   <Separator />
