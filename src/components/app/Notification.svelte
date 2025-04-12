@@ -29,7 +29,7 @@
     </h1>
   {/if}
   <a href={link}>
-    <Alert.Root class=" flex  min-h-14 shadow">
+    <Alert.Root class="flex min-h-14 shadow-sm">
       <div class="flex items-center">
         <div class="flex-shrink-0">
           <!-- TODO add more icons -->

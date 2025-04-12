@@ -12,12 +12,12 @@
   </header>
 
   <section class="flex flex-col gap-6">
-    <div class="rounded-lg border border-border bg-background p-6">
+    <div class="rounded-lg border border-border p-6 shadow-sm">
       <h2 class="text-xl font-semibold text-foreground">{m.app_home_selfEducationHeading()}</h2>
       <p class="mt-2 text-muted-foreground">{m.app_home_selfEducationText()}</p>
       <Button class="mt-4" variant="outline">{m.app_home_selfEducationButton()}</Button>
     </div>
-    <div class="rounded-lg border border-border bg-background p-6">
+    <div class="rounded-lg border border-border p-6 shadow-sm">
       <h2 class="text-xl font-semibold text-foreground">{m.app_home_treatmentHeading()}</h2>
       <p class="mt-2 text-muted-foreground">{m.app_home_treatmentText()}</p>
       <Button class="mt-4" variant="outline">{m.app_home_treatmentButton()}</Button>
