@@ -61,7 +61,10 @@
 
 {#if position === undefined || active() === position}
   <div
-    class={cn('flex h-svh flex-col gap-4 overflow-y-scroll p-4 lg:h-[60px] lg:px-6 ', className)}
+    class={cn(
+      'mx-auto flex h-svh max-w-screen-sm flex-col gap-4 overflow-y-scroll p-4  lg:px-6',
+      className
+    )}
   >
     <div class="min-h-1">
       {#if !hideProgress}
