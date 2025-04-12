@@ -1,7 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import * as Story from '$components/stories';
-  import type { Flyer } from '$types/flyers';
   import { error } from '@sveltejs/kit';
   import type { PageData } from './$types';
   import { m } from '$lib/paraglide/messages';
