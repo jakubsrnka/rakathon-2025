@@ -1,5 +1,5 @@
 <script>
-  import { Home, MessageSquare } from '@lucide/svelte';
+  import { Home, MessageSquare, Settings } from '@lucide/svelte';
   import { page } from '$app/state';
 
   let { children } = $props();
@@ -19,6 +19,9 @@
       </a>
       <a href="/app/notifications" class="flex h-full w-full items-center justify-center">
         <MessageSquare color={currentPathSegments[1] === 'notifications' ? 'black' : 'grey'} />
+      </a>
+      <a href="/app/settings" class="flex h-full w-full items-center justify-center">
+        <Settings color={currentPathSegments[1] === 'settings' ? 'black' : 'grey'} />
       </a>
     </div>
   </div>
