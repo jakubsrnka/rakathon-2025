@@ -4,6 +4,11 @@
 </script>
 
 <Wrapper class="flex flex-col gap-4">
-  <CustomNotification title="Mudr. Petr Novák Vám poslal zprávu" content="posílám vám informace k Vaší léčbě" link="/app/home" date="Před 1 dnem" />
+  <CustomNotification
+    title="Mudr. Petr Novák Vám poslal zprávu"
+    content="posílám vám informace k Vaší léčbě"
+    link="/app/home"
+    date="Před 1 dnem"
+  />
   <CustomNotification title="Go to login page" content="" link="/login" />
 </Wrapper>

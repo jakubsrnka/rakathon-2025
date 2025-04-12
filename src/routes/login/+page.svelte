@@ -5,7 +5,7 @@
   import { Label } from '$components/ui/label';
   import { m } from '$lib/paraglide/messages';
 
-  let target = "/app";
+  let target = '/app';
 </script>
 
 <div class="flex h-screen items-center justify-center">
