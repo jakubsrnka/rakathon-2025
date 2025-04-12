@@ -22,10 +22,5 @@
       <p class="mt-2 text-muted-foreground">{m.app_home_treatmentText()}</p>
       <Button class="mt-4" variant="outline">{m.app_home_treatmentButton()}</Button>
     </div>
-
-    <Button
-      class="hover:bg-destructive-hover mt-[400px] bg-destructive text-destructive-foreground"
-      href="/admin">Změnit na admina</Button
-    >
   </section>
 </Wrapper>

@@ -10,7 +10,7 @@
 <div class="mx-auto max-w-screen-sm">
   {@render children()}
   <div
-    class="fixed inset-x-0 bottom-0 flex h-12 items-center justify-between border-t border-border px-4 shadow-md"
+    class="fixed inset-x-0 bottom-0 flex h-12 items-center justify-between border-t border-border bg-background px-4 shadow-md"
     class:shadow={currentPathSegments[1] !== 'home'}
   >
     <div class="mx-auto flex h-full w-full max-w-screen-sm items-center justify-between">

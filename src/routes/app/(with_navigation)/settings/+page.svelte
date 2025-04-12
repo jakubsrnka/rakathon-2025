@@ -38,4 +38,6 @@
       }}>{getLocale() === 'cs' ? 'Switch to English' : 'Přepnout na češtinu'}</Button
     >
   </div>
+  <Separator />
+  <Button href="/admin" variant="destructive">{m.app_settings_changeToAdminButton()}</Button>
 </Wrapper>
