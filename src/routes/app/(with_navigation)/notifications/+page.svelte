@@ -1,43 +1,9 @@
 <script lang="ts">
-  import * as Alert from '$components/ui/alert/index.js';
+  import CustomNotification from '$components/app/Notification.svelte';
   import Wrapper from '$components/Wrapper.svelte';
-  import { Bell } from '@lucide/svelte';
 </script>
 
-<Wrapper class="flex flex-col gap-3">
-  <a href="/app/notifications">
-    <Alert.Root>
-      <Bell class="h-4 w-4" />
-      <Alert.Title>Example notification</Alert.Title>
-      <Alert.Description>Here is some info</Alert.Description>
-    </Alert.Root>
-  </a>
-  <a href="/app/notifications">
-    <Alert.Root>
-      <Bell class="h-4 w-4" />
-      <Alert.Title>Example notification</Alert.Title>
-      <Alert.Description>Here is some info</Alert.Description>
-    </Alert.Root>
-  </a>
-  <a href="/app/notifications">
-    <Alert.Root>
-      <Bell class="h-4 w-4" />
-      <Alert.Title>Example notification</Alert.Title>
-      <Alert.Description>Here is some info</Alert.Description>
-    </Alert.Root>
-  </a>
-  <a href="/app/notifications">
-    <Alert.Root>
-      <Bell class="h-4 w-4" />
-      <Alert.Title>Example notification</Alert.Title>
-      <Alert.Description>Here is some info</Alert.Description>
-    </Alert.Root>
-  </a>
-  <a href="/app/notifications">
-    <Alert.Root>
-      <Bell class="h-4 w-4" />
-      <Alert.Title>Example notification</Alert.Title>
-      <Alert.Description>Here is some info</Alert.Description>
-    </Alert.Root>
-  </a>
+<Wrapper class="flex flex-col gap-4">
+  <CustomNotification title="Mudr. Petr Novák Vám poslal zprávu" content="posílám vám informace k Vaší léčbě" link="/app/home" />
+  <CustomNotification title="Go to login page" content="" link="/login" />
 </Wrapper>
