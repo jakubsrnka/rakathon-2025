@@ -4,9 +4,10 @@
   import { m } from '$lib/paraglide/messages';
 </script>
 
-<div class="flex justify-center align-center h-full">
-<Button
+<div class="align-center flex h-full justify-center">
+  <Button
     on:click={() => {
-        getLocale() === 'cs' ? setLocale('en') : setLocale('cs');
-    }}>{getLocale() === 'cs' ? 'Switch to English' : 'Přepnout na češtinu'}</Button>
+      getLocale() === 'cs' ? setLocale('en') : setLocale('cs');
+    }}>{getLocale() === 'cs' ? 'Switch to English' : 'Přepnout na češtinu'}</Button
+  >
 </div>

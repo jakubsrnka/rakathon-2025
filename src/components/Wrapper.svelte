@@ -4,6 +4,6 @@
   let { class: className = '', children }: { class?: string; children: Snippet } = $props();
 </script>
 
-<div class={cn('container mx-auto p-6 mb-10', className)}>
+<div class={cn('container mx-auto mb-10 p-6', className)}>
   {@render children()}
 </div>
