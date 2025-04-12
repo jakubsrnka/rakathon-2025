@@ -60,7 +60,9 @@
 </script>
 
 {#if position === undefined || active() === position}
-  <div class={cn('flex h-svh flex-col gap-4 overflow-y-scroll p-4 lg:h-[60px] lg:px-6', className)}>
+  <div
+    class={cn('flex h-svh flex-col gap-4 overflow-y-scroll p-4 lg:h-[60px] lg:px-6 ', className)}
+  >
     <div class="min-h-1">
       {#if !hideProgress}
         <Progress value={progress} class="min-h-1 bg-neutral-300" />

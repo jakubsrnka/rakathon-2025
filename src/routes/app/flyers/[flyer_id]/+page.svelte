@@ -27,7 +27,7 @@
 
 {#await load(data.params.flyer_id)}
   <Story.Wrapper length={100000}>
-    <Story.Root class="bg-red-500">
+    <Story.Root>
       <div class="flex h-full flex-col gap-4 p-4">
         <h1 class="text-lg font-semibold">{m.app_flyers_loading_flyer()}</h1>
       </div>
@@ -40,7 +40,7 @@
     onend={() => goto('/app/notifications')}
   >
     {#each flyer.slides as slide}
-      <Story.Root class="bg-red-500" bind:stopped={isStopped}>
+      <Story.Root bind:stopped={isStopped}>
         <div class="flex flex-col gap-4 p-4">
           {#if !isStopped}
             <h1 class="text-3xl font-semibold">{slide.title}</h1>
