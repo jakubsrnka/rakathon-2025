@@ -8,6 +8,7 @@
   <Card.Root class="w-[90%] max-w-80">
     <Card.Content class="grid gap-4">
       <Button class="w-full" href="/login">{m.user_login()}</Button>
+      <Button class="w-full" href="/user/flyers">{m.user_flyers()}</Button>
     </Card.Content>
   </Card.Root>
 </div>
