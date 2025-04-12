@@ -12,11 +12,11 @@ export const load: PageLoad = async ({ fetch }) => {
     const users: UsersDemo[] = usersResponse.map(
       (user) =>
         ({
-          id: user.id,
+          databaseId: user.id,
+          birth_number: user.birth_number,
           email: user.email,
           name: user.name,
           surname: user.surname,
-          birth_number: user.birth_number,
           title_before: user.title_before,
           title_after: user.title_after
         }) as UsersDemo
@@ -26,6 +26,8 @@ export const load: PageLoad = async ({ fetch }) => {
       const existingUser = demoApi.find((demo) => demo.birth_number === user.birth_number);
       if (!existingUser) {
         demoApi.push(user);
+      } else {
+        demoApi[demoApi.indexOf(existingUser)].databaseId = user.databaseId;
       }
     });
 

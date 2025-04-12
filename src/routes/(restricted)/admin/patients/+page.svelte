@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageData } from './$types';
-  import { Check, FileDown } from '@lucide/svelte';
+  import { Check, Database, Plus } from '@lucide/svelte';
   import { ChevronsUpDown } from '@lucide/svelte';
   import { tick } from 'svelte';
   import * as Command from '$components/ui/command/index.js';
@@ -13,6 +13,7 @@
   import type { UsersCreate } from '$types/user';
   import Badge from '$components/ui/badge/badge.svelte';
   import { m } from '$lib/paraglide/messages';
+  import CreateFlyer from '$components/admin/CreateFlyer.svelte';
 
   let { data }: { data: PageData } = $props();
 
@@ -45,8 +46,6 @@
     try {
       if (!data.usersResponse.find((f) => f.birth_number === patient)) {
         const patientData = data.demoApi.find((f) => f.birth_number === patient);
-        console.log('patientData', patientData);
-
         if (!patientData) {
           throw new Error('Patient not found');
         }
@@ -101,6 +100,11 @@
               <Check
                 class={cn('mr-2 h-4 w-4', value !== person.birth_number && 'text-transparent')}
               />
+              {#if person.databaseId}
+                <Database class="mr-4 h-4 w-4 text-muted-foreground" />
+              {:else}
+                <Plus class="mr-4 h-4 w-4 text-muted-foreground" />
+              {/if}
               {person.title_before}
               {person.name}
               {person.surname}
@@ -116,6 +120,7 @@
     </Popover.Content>
   </Popover.Root>
   <input type="hidden" name="patient" bind:value={selectedPatientBirthNumber} />
+  <CreateFlyer />
   <Textarea
     id="textarea"
     name="textarea"
