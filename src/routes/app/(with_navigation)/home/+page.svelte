@@ -20,5 +20,7 @@
       <p class="mt-2 text-gray-600">Informace o průběhu léčby</p>
       <Button class="mt-4">Zobrazit léčbu</Button>
     </div>
+
+    <Button class="bg-grey">Změnit na admina</Button>
   </section>
 </Wrapper>
