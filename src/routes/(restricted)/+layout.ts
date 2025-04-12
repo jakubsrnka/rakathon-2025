@@ -8,9 +8,7 @@ export const load: LayoutLoad = async ({ fetch }) => {
 
   if (pbClient.authStore.isValid) {
     try {
-      console.log('Authenticating user');
       pbClient.collection(Collections.Users).authRefresh({ fetch });
-      console.log('User is authenticated');
     } catch (e) {
       pbClient.authStore.clear();
       console.log('User not authenticated, redirecting to login', e);
