@@ -11,12 +11,20 @@
   import * as DropdownMenu from '$components/ui/dropdown-menu/index.js';
   import { Input } from '$components/ui/input/index.js';
   import * as Sheet from '$components/ui/sheet/index.js';
+  import { currentUser, pbClient } from '$lib/pocketbase';
 
   import { page } from '$app/state';
+  import { goto } from '$app/navigation';
 
   let { children } = $props();
 
   let currentPathSegments = $derived(page.url.pathname.split('/').filter(Boolean));
+
+  function handleLogout() {
+    pbClient.authStore.clear();
+    currentUser.set(null);
+    goto('/login');
+  }
 </script>
 
 <div class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -25,7 +33,11 @@
       <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
         <a href="/" class="flex items-center gap-2 font-semibold">
           <Package2 class="h-6 w-6" />
-          <span class="">Acme Inc</span>
+          <span class="">
+            {$currentUser?.name}
+            &nbsp;
+            {$currentUser?.surname}
+          </span>
         </a>
         <Button variant="outline" size="icon" class="ml-auto h-8 w-8">
           <Bell class="h-4 w-4" />
@@ -121,8 +133,9 @@
           <DropdownMenu.Label>My Account</DropdownMenu.Label>
           <DropdownMenu.Separator />
           <DropdownMenu.Item>Settings</DropdownMenu.Item>
+          <DropdownMenu.Item>Switch to User</DropdownMenu.Item>
           <DropdownMenu.Separator />
-          <DropdownMenu.Item>Logout</DropdownMenu.Item>
+          <DropdownMenu.Item onclick={handleLogout}>Logout</DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </header>
