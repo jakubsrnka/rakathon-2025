@@ -19,12 +19,14 @@
   let open = $state(false);
   let value = $state('');
   let selectedValue = $state('');
+  let selectedPatientBirthNumber = $state('');
 
   $effect(() => {
     const selectedPatient = data.demoApi.find((f) => f.birth_number === value);
     selectedValue = selectedPatient
       ? `${selectedPatient.title_before ?? ''} ${selectedPatient.name} ${selectedPatient.surname} ${selectedPatient.title_after ?? ''}`
       : m.admin_patients_selectAPatient();
+    selectedPatientBirthNumber = selectedPatient?.birth_number ?? '';
   });
 
   function closeAndFocusTrigger(triggerId: string) {
@@ -43,6 +45,8 @@
     try {
       if (!data.usersResponse.find((f) => f.birth_number === patient)) {
         const patientData = data.demoApi.find((f) => f.birth_number === patient);
+        console.log('patientData', patientData);
+
         if (!patientData) {
           throw new Error('Patient not found');
         }
@@ -50,11 +54,13 @@
         const user: UsersCreate = {
           email: patientData.email,
           name: patientData.name,
-          password,
+          password: password,
           passwordConfirm: password,
           role: UsersRoleOptions.user,
           birth_number: patientData.birth_number,
-          surname: patientData.surname
+          surname: patientData.surname,
+          title_before: patientData.title_before,
+          title_after: patientData.title_after
         };
         await createUser(user);
       }
@@ -109,7 +115,7 @@
       </Command.Root>
     </Popover.Content>
   </Popover.Root>
-  <input type="hidden" name="patient" bind:value={selectedValue} />
+  <input type="hidden" name="patient" bind:value={selectedPatientBirthNumber} />
   <Textarea
     id="textarea"
     name="textarea"
