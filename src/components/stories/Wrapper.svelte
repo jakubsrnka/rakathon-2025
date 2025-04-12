@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Button } from '$components/ui/button';
   import Progress from '$components/ui/progress/progress.svelte';
-  import type { InfinityIcon } from '@lucide/svelte';
+  import { Text, GalleryHorizontal } from '@lucide/svelte';
   import { onMount, setContext, type Snippet } from 'svelte';
 
   let {
@@ -20,6 +20,8 @@
 
   let count = $state(0);
   let active = $state(0);
+  let viewState = $state(0);
+  let stopped = $state(false);
 
   const onbegin = () => {};
   const onend = () => {
@@ -59,8 +61,8 @@
     const finalTime = length * count;
     const interval = setInterval(() => {
       if (time <= finalTime) {
-        console.log('active', active);
         time += INTERVAL / 1000;
+
         return;
       } else {
         if (onParentEnd) onParentEnd();
@@ -71,19 +73,46 @@
 </script>
 
 <div class="absolute left-8 right-8 top-8 z-50 flex gap-4">
-  {#each Array(count) as _, i}
-    <Progress
-      value={active === i ? ((time - active * length) / length) * 100 : active > i ? 100 : 0}
-      class="h-1 min-h-1 w-full bg-neutral-300"
-    />
-  {/each}
+  {#if viewState === 0}
+    {#each Array(count) as _, i}
+      <Progress
+        value={active === i ? ((time - active * length) / length) * 100 : active > i ? 100 : 0}
+        class="h-1 min-h-1 w-full bg-neutral-300"
+      />
+    {/each}
+  {/if}
 </div>
 {@render children()}
-<div class="absolute left-0 right-0 top-0 z-50 flex h-1 justify-between gap-4">
-  <Button variant="ghost" class="h-lvh w-1/2 hover:bg-transparent" onclick={back} />
-  <Button variant="ghost" class="h-lvh w-1/2 hover:bg-transparent" onclick={skip} />
-</div>
+{#if viewState === 0}
+  <div class="absolute left-0 right-0 top-0 z-50 flex h-1 justify-between gap-4">
+    <Button variant="ghost" class="h-lvh w-1/2 hover:bg-transparent" onclick={back} />
+    <Button variant="ghost" class="h-lvh w-1/2 hover:bg-transparent" onclick={skip} />
+  </div>
+{/if}
 <div class="absolute bottom-20 left-8 right-8 z-50 flex h-1 justify-between gap-4">
-  <Button class="w-20" onclick={back}>Back</Button>
-  <Button class="w-20" onclick={skip} disabled={active === count - 1}>Next</Button>
+  {#if viewState === 0}
+    <Button class="w-20" onclick={back}>Back</Button>
+    <Button
+      class="w-20"
+      onclick={() => {
+        viewState = 1;
+        stopped = !stopped;
+      }}
+    >
+      <Text />
+    </Button>
+    <Button class="w-20" onclick={skip} disabled={active === count - 1}>Next</Button>
+  {:else}
+    <div class="flex w-full justify-center">
+      <Button
+        class="w-20"
+        onclick={() => {
+          viewState = 0;
+          stopped = !stopped;
+        }}
+      >
+        <GalleryHorizontal />
+      </Button>
+    </div>
+  {/if}
 </div>

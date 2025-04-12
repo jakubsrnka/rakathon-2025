@@ -35,7 +35,6 @@
   onMount(() => {
     if (count) position = count();
     if (lengthFromParent) length = lengthFromParent();
-    console.log('position', position);
     let firstTime = true;
     const interval = setInterval(() => {
       if (stopped) {
@@ -61,7 +60,7 @@
 </script>
 
 {#if position === undefined || active() === position}
-  <div class={cn('flex h-svh min-h-fit flex-col gap-4 p-4 lg:h-[60px] lg:px-6', className)}>
+  <div class={cn('flex h-svh flex-col gap-4 p-4 lg:h-[60px] lg:px-6', className)}>
     <div class="min-h-1">
       {#if !hideProgress}
         <Progress value={progress} class="min-h-1 bg-neutral-300" />

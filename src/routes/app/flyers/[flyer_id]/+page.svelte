@@ -13,8 +13,21 @@
     // TODO : Replace with real data from pocketbase
     const data = [
       [
-        { heading: 'Page 1', content: 'Flyer content page ID 1' },
-        { heading: 'Page 2', content: 'Flyer content for ID 1' },
+        {
+          heading: 'Co je Imatinib?',
+          content:
+            'Imatinib (Glivec) je cílená biologická léčba určená pro pacienty s gastrointestinálními stromálními nádory (GIST). Patří mezi tzv. inhibitory tyrosinkinázy a pomáhá zpomalit nebo zastavit růst nádorových buněk.'
+        },
+        {
+          heading: 'Jak Imatinib užívat?',
+          content: `- Užívejte přesně podle pokynů lékaře.
+
+        - Obvyklá dávka je 400 mg denně, ale může být upravena dle potřeb.
+
+        - Tabletu spolkněte celou s jídlem a dostatečným množstvím vody.
+
+        - Snažte se užívat lék každý den ve stejnou dobu.`
+        },
         { heading: 'Page 3', content: 'Flyer content for ID 1' }
       ],
       [
@@ -38,20 +51,17 @@
   }
 </script>
 
-<Story.Wrapper length={data.flyer.length * storyDuration} onend={() => goto('/app/notifications')}>
-  {#each data.flyer as { heading, content }}
+{#await load(data.params.flyer_id)}
+  <Story.Wrapper length={10000}>
     <Story.Root class="bg-red-500">
-      <div class="flex h-14 flex-col gap-4 p-4 lg:h-[60px] lg:px-6">
-        <h1 class="text-3xl font-semibold">{heading}</h1>
-        <h1 class="text-lg font-semibold">{content}</h1>
-      </div>
+      {m.app_flyers_loading_flyer()}
     </Story.Root>
   </Story.Wrapper>
 {:then { flyer }}
   <Story.Wrapper length={flyer.length * storyDuration} onend={() => goto('/app/notifications')}>
     {#each flyer as { heading, content }}
       <Story.Root class="bg-red-500">
-        <div class="flex h-14 min-h-svh flex-col gap-4 border-b p-4 lg:h-[60px] lg:px-6">
+        <div class="flex flex-col gap-4 p-4 lg:h-[60px] lg:px-6">
           <h1 class="text-3xl font-semibold">{heading}</h1>
           <h1 class="text-lg font-semibold">{content}</h1>
         </div>
