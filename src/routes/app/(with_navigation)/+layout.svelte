@@ -1,5 +1,5 @@
 <script>
-  import { Bell, BellDot, Home } from '@lucide/svelte';
+  import { Home, MessageSquare } from '@lucide/svelte';
   import { page } from '$app/state';
 
   let { children } = $props();
@@ -18,9 +18,7 @@
         <Home color={currentPathSegments[1] === 'home' ? 'black' : 'grey'} />
       </a>
       <a href="/app/notifications" class="flex h-full w-full items-center justify-center">
-        <!-- TODO Implement new notifications -->
-        <BellDot color={currentPathSegments[1] === 'notifications' ? 'black' : 'grey'} />
-        <!-- <Bell color={currentPathSegments[1] === 'notifications' ? 'black' : 'grey'} /> -->
+        <MessageSquare color={currentPathSegments[1] === 'notifications' ? 'black' : 'grey'} />
       </a>
     </div>
   </div>
