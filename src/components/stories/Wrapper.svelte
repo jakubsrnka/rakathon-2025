@@ -78,7 +78,7 @@
 
 <div class="absolute left-8 right-8 top-8 z-50 flex gap-4">
   {#if viewState === 0}
-    {#each Array(count) as _, i}
+    {#each Array(count) as _, i (i)}
       <Progress
         value={active === i ? ((time - active * length) / length) * 100 : active > i ? 100 : 0}
         class="h-1 min-h-1 w-full bg-neutral-300"
