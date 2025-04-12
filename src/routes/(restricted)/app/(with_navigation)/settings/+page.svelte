@@ -7,9 +7,10 @@
   import Sun from '@lucide/svelte/icons/sun';
   import Moon from '@lucide/svelte/icons/moon';
 
-  import { toggleMode } from 'mode-watcher';
+  import { toggleMode, resetMode } from 'mode-watcher';
   import PageHeading from '$components/app/PageHeading.svelte';
   import Separator from '$components/ui/separator/separator.svelte';
+  import { SunMoon } from '@lucide/svelte';
 </script>
 
 <Wrapper class="flex flex-col gap-4">
@@ -17,16 +18,25 @@
 
   <div class="flex items-center justify-between">
     <Label class="text-md flex items-center">{m.app_settings_darkMode()}</Label>
-
-    <Button on:click={toggleMode} variant="outline" size="icon">
-      <Sun
-        class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-      />
-      <Moon
-        class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-      />
-      <span class="sr-only">{m.app_settings_darkModeHint()}</span>
-    </Button>
+    <div class="flex items-center gap-2">
+      <Button on:click={toggleMode} variant="outline" size="icon">
+        <Sun
+          class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+        />
+        <Moon
+          class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+        />
+        <span class="sr-only">{m.app_settings_darkModeHint()}</span>
+      </Button>
+      <Button
+        on:click={resetMode}
+        variant="outline"
+        size="icon"
+        title={m.app_settings_systemDefaultHint()}
+      >oon class="absolute h-[1.2rem] w-[1.2rem] transition-all" />
+        <span class="sr-only">{m.app_settings_systemDefaultHint()}</span>
+      </Button>
+    </div>
   </div>
   <Separator />
   <div class="flex items-center justify-between">
@@ -35,7 +45,7 @@
       variant="outline"
       on:click={() => {
         getLocale() === 'cs' ? setLocale('en') : setLocale('cs');
-      }}>{getLocale() === 'cs' ? 'Switch to English' : 'Přepnout na češtinu'}</Button
+      }}>{getLocale() === 'cs' ? 'Čeština' : 'English'}</Button
     >
   </div>
   <Separator />
