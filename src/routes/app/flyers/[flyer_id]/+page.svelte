@@ -40,11 +40,11 @@
 
 {#await load(data.params.flyer_id)}
   <Story.Wrapper length={100000}>
-      <Story.Root class="bg-red-500">
-        <div class="flex h-14 min-h-svh flex-col gap-4 border-b p-4 lg:h-[60px] lg:px-6">
-          <h1 class="text-lg font-semibold">{m.app_flyers_loading_flyer()}</h1>
-        </div>
-      </Story.Root>
+    <Story.Root class="bg-red-500">
+      <div class="flex h-14 min-h-svh flex-col gap-4 border-b p-4 lg:h-[60px] lg:px-6">
+        <h1 class="text-lg font-semibold">{m.app_flyers_loading_flyer()}</h1>
+      </div>
+    </Story.Root>
   </Story.Wrapper>
 {:then { flyer }}
   <Story.Wrapper length={flyer.length * storyDuration} onend={() => goto('/app/notifications')}>

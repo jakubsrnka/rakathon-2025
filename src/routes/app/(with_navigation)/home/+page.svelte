@@ -22,6 +22,8 @@
       <Button class="mt-4">{m.app_home_treatmentButton()}</Button>
     </div>
 
-    <Button class="mt-[400px] bg-red-500 text-white hover:bg-red-600" href="/admin">Změnit na admina</Button>
+    <Button class="mt-[400px] bg-red-500 text-white hover:bg-red-600" href="/admin"
+      >Změnit na admina</Button
+    >
   </section>
 </Wrapper>
