@@ -1,7 +1,6 @@
 import type { LayoutLoad } from './$types';
 import { pbClient } from '$lib/pocketbase/';
 import { Collections } from '$types/pocketbase';
-import { redirect } from '@sveltejs/kit';
 
 export const load: LayoutLoad = async ({ fetch }) => {
   if (pbClient.authStore.isValid) {
@@ -10,7 +9,5 @@ export const load: LayoutLoad = async ({ fetch }) => {
     } catch {
       pbClient.authStore.clear();
     }
-  } else {
-    redirect(307, '/login');
   }
 };

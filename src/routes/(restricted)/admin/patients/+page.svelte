@@ -46,7 +46,7 @@
         if (!patientData) {
           throw new Error('Patient not found');
         }
-        const password = Math.random().toString(36).slice(2, 66);
+        const password = window.crypto.getRandomValues(new BigUint64Array(1))[0].toString(36);
         const user: UsersCreate = {
           email: patientData.email,
           name: patientData.name,
