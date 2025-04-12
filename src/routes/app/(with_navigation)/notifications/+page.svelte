@@ -1,6 +1,7 @@
 <script lang="ts">
   import CustomNotification from '$components/app/Notification.svelte';
   import Wrapper from '$components/Wrapper.svelte';
+  import { demoFlyers } from '$lib/demoFlyers';
   import { m } from '$lib/paraglide/messages';
 </script>
 
