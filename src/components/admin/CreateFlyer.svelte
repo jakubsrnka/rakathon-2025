@@ -10,6 +10,7 @@
   import type { Flyer } from '$types/flyers';
   import { createFlyer } from '$lib/pocketbase/flyer';
   import { Minus, Plus, WandSparkles, X } from '@lucide/svelte';
+  import { goto } from '$app/navigation';
 
   let { exportFlyer = $bindable(), variant = 1 }: { exportFlyer?: Flyer; variant?: 1 | 2 } =
     $props();
@@ -62,6 +63,7 @@
     try {
       await createFlyer(flyer);
       exportFlyer = flyer;
+      goto('/admin/flyers');
     } catch (error) {
       console.error('Error creating flyer:', error);
     }
@@ -255,7 +257,7 @@
   {/if}
 </div>
 {#if variant === 2}
-  <Button onclick={handleClick} class="absolute bottom-4 right-4 max-w-96">
+  <Button onclick={handleClick} class="fixed bottom-4 right-4 max-w-96">
     {m.flyer_new_save()}
   </Button>
 {/if}
