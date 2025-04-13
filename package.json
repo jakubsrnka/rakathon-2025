@@ -56,5 +56,6 @@
       "esbuild",
       "sqlite3"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.7.1"
 }
