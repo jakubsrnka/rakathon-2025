@@ -1,8 +1,21 @@
-<script>
+<script lang="ts">
   import { Button } from '$components/ui/button';
+  import * as Card from '$components/ui/card';
+  import { m } from '$lib/paraglide/messages';
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
-
-<Button class="h-96" href="/login">🪇 El Button 🪇</Button>
+<div class="flex h-screen items-center justify-center">
+  <Card.Root class="w-[90%] max-w-80">
+    <Card.Header class="space-y-1">
+      <Card.Title class="text-2xl">Vítejte v rozcestníku!</Card.Title>
+    </Card.Header>
+    <Card.Content class="grid gap-4">
+      <Card.Description class="text-sm text-gray-500"
+        >Pro přihlášení klikněte níže.</Card.Description
+      >
+    </Card.Content>
+    <Card.Footer>
+      <Button class="w-full" href="/login">{m.user_login()}</Button>
+    </Card.Footer>
+  </Card.Root>
+</div>
