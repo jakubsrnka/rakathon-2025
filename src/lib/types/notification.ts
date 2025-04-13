@@ -1,8 +1,7 @@
-export type Notification = {
-  adminId: string;
-  flyerId?: string;
-  tags?: string[];
+export type PatientNotification = {
+  admin: string;
+  flyer?: string;
   text?: string;
-  timeSend: string;
-  userId: string;
+  time_to_send: Date | string;
+  user: string;
 };

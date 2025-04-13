@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageData } from './$types';
-  import { Check, Database, Plus } from '@lucide/svelte';
+  import { Check, Database, Plus, CalendarIcon } from '@lucide/svelte';
   import { ChevronsUpDown } from '@lucide/svelte';
   import { currentUser } from '$lib/pocketbase';
   import { tick } from 'svelte';
@@ -17,25 +17,31 @@
   import * as Tabs from '$components/ui/tabs';
   import CreateFlyer from '$components/admin/CreateFlyer.svelte';
   import { createNotification } from '$lib/pocketbase/notifications';
-  import type { Notification } from '$types/notification';
+  import type { PatientNotification } from '$types/notification';
+  import { DateFormatter, type DateValue, getLocalTimeZone } from '@internationalized/date';
+  import { Calendar } from '$components/ui/calendar/index.js';
 
   let { data }: { data: PageData } = $props();
 
   let open1 = $state(false);
   let open2 = $state(false);
-  let value = $state('');
+  let value1 = $state('');
+  let value2 = $state('');
+  let selectedTimeSend: DateValue | undefined = $state(undefined);
   let selectedPatientValue = $state('');
   let selectedPatientBirthNumber = $state('');
   let selectedFlyerValue = $state('');
+  let selectedFlyerId = $state('');
 
   $effect(() => {
-    const selectedPatient = data.demoApi.find((f) => f.birth_number === value);
+    const selectedPatient = data.demoApi.find((f) => f.birth_number === value1);
     selectedPatientValue = selectedPatient
       ? `${selectedPatient.title_before ?? ''} ${selectedPatient.name} ${selectedPatient.surname} ${selectedPatient.title_after ?? ''}`
       : m.admin_patients_selectAPatient();
     selectedPatientBirthNumber = selectedPatient?.birth_number ?? '';
     selectedFlyerValue =
-      data.flyersResponse.find((f) => f.title === value)?.title ?? 'Select a flyer';
+      data.flyersResponse.find((f) => f.title === value2)?.title ?? 'Select a flyer';
+    selectedFlyerId = data.flyersResponse.find((f) => f.title === value2)?.id ?? '';
   });
 
   function closeAndFocusTrigger(triggerId: string, setClosed: (val: boolean) => void) {
@@ -45,16 +51,18 @@
     });
   }
 
+  const df = new DateFormatter('en-US', {
+    dateStyle: 'long'
+  });
+
   async function handleSubmit(event: SubmitEvent) {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    const patient = formData.get('patient');
-    const flyer = formData.get('flyer');
-    const textarea = formData.get('textarea');
+    const textarea = formData.get('textarea')?.toString();
 
     try {
-      if (!data.usersResponse.find((f) => f.birth_number === patient)) {
-        const patientData = data.demoApi.find((f) => f.birth_number === patient);
+      if (!data.usersResponse.find((f) => f.birth_number === selectedPatientBirthNumber)) {
+        const patientData = data.demoApi.find((f) => f.birth_number === selectedPatientBirthNumber);
         if (!patientData) {
           throw new Error('Patient not found');
         }
@@ -72,16 +80,20 @@
         };
         await createUser(user);
       }
-      const userId = data.usersResponse.find((f) => f.birth_number === patient)?.id;
+      const userId = data.usersResponse.find(
+        (f) => f.birth_number === selectedPatientBirthNumber
+      )?.id;
       const adminId = $currentUser?.id;
-      // const notification: Notification = {
-      //   userId,
-      //   flyer: flyer,
-      //   message: textarea,
-      //   sender: adminId,
-      //   status: 'sent'
-      // };
-      await createNotification;
+      const flyerId = selectedFlyerId;
+
+      const notification: PatientNotification = {
+        user: userId ?? '',
+        flyer: flyerId ?? '',
+        text: textarea ?? '',
+        time_to_send: selectedTimeSend ? selectedTimeSend.toDate(getLocalTimeZone()) : '',
+        admin: adminId ?? ''
+      };
+      await createNotification(notification);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -111,13 +123,13 @@
             <Command.Item
               value={person.birth_number}
               onSelect={(currentValue: string) => {
-                value = currentValue;
+                value1 = currentValue;
                 closeAndFocusTrigger(ids.trigger, (val) => (open1 = val));
               }}
               class="align flex items-center"
             >
               <Check
-                class={cn('mr-2 h-4 w-4', value !== person.birth_number && 'text-transparent')}
+                class={cn('mr-2 h-4 w-4', value1 !== person.birth_number && 'text-transparent')}
               />
               {#if person.databaseId}
                 <Database class="mr-4 h-4 w-4 text-muted-foreground" />
@@ -138,7 +150,6 @@
       </Command.Root>
     </Popover.Content>
   </Popover.Root>
-  <input type="hidden" name="patient" bind:value={selectedPatientBirthNumber} />
   <h2 class="w-full font-bold">Flyers</h2>
   <Tabs.Root value="create" class="w-full">
     <Tabs.List class="w-full">
@@ -171,12 +182,12 @@
                 <Command.Item
                   value={flyer.title}
                   onSelect={(currentValue: string) => {
-                    value = currentValue;
+                    value2 = currentValue;
                     closeAndFocusTrigger(ids.trigger, (val) => (open2 = val));
                   }}
                   class="align flex items-center"
                 >
-                  <Check class={cn('mr-2 h-4 w-4', value !== flyer.title && 'text-transparent')} />
+                  <Check class={cn('mr-2 h-4 w-4', value2 !== flyer.title && 'text-transparent')} />
                   {flyer.title}
                 </Command.Item>
               {/each}
@@ -186,7 +197,24 @@
       </Popover.Root>
     </Tabs.Content>
   </Tabs.Root>
-  <input type="hidden" name="flyer" bind:value={selectedFlyerValue} />
+  <Popover.Root>
+    <Popover.Trigger asChild let:builder>
+      <Button
+        variant="outline"
+        class={cn(
+          'w-[280px] justify-start text-left font-normal',
+          !selectedTimeSend && 'text-muted-foreground'
+        )}
+        builders={[builder]}
+      >
+        <CalendarIcon class="mr-2 h-4 w-4" />
+        {selectedTimeSend ? df.format(selectedTimeSend.toDate(getLocalTimeZone())) : 'Pick a date'}
+      </Button>
+    </Popover.Trigger>
+    <Popover.Content class="w-auto p-0">
+      <Calendar bind:value={selectedTimeSend} initialFocus />
+    </Popover.Content>
+  </Popover.Root>
   <Textarea
     id="textarea"
     name="textarea"
