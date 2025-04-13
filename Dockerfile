@@ -7,6 +7,11 @@ RUN corepack prepare pnpm@10.7.1 --activate
 
 FROM base AS builder
 
+ARG PUBLIC_PB_URL
+ARG PB_SUPERUSER_EMAIL
+ARG PB_SUPERUSER_PASSWORD
+ARG OPENAI_API_KEY
+
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
