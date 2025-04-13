@@ -11,7 +11,8 @@
   import { createFlyer } from '$lib/pocketbase/flyer';
   import { Minus, Plus, WandSparkles, X } from '@lucide/svelte';
 
-  let { importFlyer, variant = 1 }: { importFlyer?: Flyer; variant?: 1 | 2 } = $props();
+  let { exportFlyer = $bindable(), variant = 1 }: { exportFlyer?: Flyer; variant?: 1 | 2 } =
+    $props();
 
   let prompt: string | undefined = $state(undefined);
   let language: {
@@ -20,18 +21,16 @@
   } = $state({ value: 'Czech', label: 'Čeština' });
 
   let submitted = $state(false);
-  let flyer = $state<Flyer>(
-    importFlyer || {
-      heading: 'Letáček',
-      slides: [
-        {
-          title: 'Nadpis',
-          content: ['Obsah 1. řádku', 'Obsah 2. řádku']
-        }
-      ],
-      tags: []
-    }
-  );
+  let flyer = $state<Flyer>({
+    heading: 'Letáček',
+    slides: [
+      {
+        title: 'Nadpis',
+        content: ['Obsah 1. řádku', 'Obsah 2. řádku']
+      }
+    ],
+    tags: []
+  });
 
   const languages = [
     { value: 'Czech', label: 'Čeština' },
@@ -62,6 +61,7 @@
   async function handleClick() {
     try {
       await createFlyer(flyer);
+      exportFlyer = flyer;
     } catch (error) {
       console.error('Error creating flyer:', error);
     }

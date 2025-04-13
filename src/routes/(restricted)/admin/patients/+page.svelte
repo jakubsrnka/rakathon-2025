@@ -20,6 +20,7 @@
   import type { PatientNotification } from '$types/notification';
   import { DateFormatter, type DateValue, getLocalTimeZone } from '@internationalized/date';
   import { Calendar } from '$components/ui/calendar/index.js';
+  import type { Flyer } from '$types/flyers';
 
   let { data }: { data: PageData } = $props();
 
@@ -32,6 +33,7 @@
   let selectedPatientBirthNumber = $state('');
   let selectedFlyerValue = $state('');
   let selectedFlyerId = $state('');
+  let exportedFlyer = $state<Flyer>();
 
   $effect(() => {
     const selectedPatient = data.demoApi.find((f) => f.birth_number === value1);
@@ -150,14 +152,34 @@
       </Command.Root>
     </Popover.Content>
   </Popover.Root>
-  <h2 class="w-full font-bold">Flyers</h2>
+  {#if !exportedFlyer}
+    <h2 class="w-full font-bold">Flyers</h2>
+  {/if}
   <Tabs.Root value="create" class="w-full">
-    <Tabs.List class="w-full">
-      <Tabs.Trigger class="w-1/2" value="create">Create</Tabs.Trigger>
-      <Tabs.Trigger class="w-1/2" value="import">Import</Tabs.Trigger>
-    </Tabs.List>
+    {#if !exportedFlyer}
+      <Tabs.List class="w-full">
+        <Tabs.Trigger class="w-1/2" value="create">Create</Tabs.Trigger>
+        <Tabs.Trigger class="w-1/2" value="import">Import</Tabs.Trigger>
+      </Tabs.List>
+    {/if}
     <Tabs.Content value="create">
-      <CreateFlyer />
+      {#if !exportedFlyer}
+        <CreateFlyer bind:exportFlyer={exportedFlyer} />
+      {:else}
+        <div class="flex flex-col gap-2">
+          <h1 class="text-2xl font-bold">{exportedFlyer.heading}</h1>
+          {#if exportedFlyer.slides}
+            {#each exportedFlyer.slides as contents}
+              <h2 class="mt-2 text-lg font-medium">{contents.title}</h2>
+              <ul>
+                {#each contents.content as content}
+                  <li class="flex items-center gap-2 before:content-['-']">{content}</li>
+                {/each}
+              </ul>
+            {/each}
+          {/if}
+        </div>
+      {/if}
     </Tabs.Content>
     <Tabs.Content value="import">
       <Popover.Root bind:open={open2} let:ids>
@@ -202,7 +224,7 @@
       <Button
         variant="outline"
         class={cn(
-          'w-[280px] justify-start text-left font-normal',
+          'w-full justify-start text-left font-normal',
           !selectedTimeSend && 'text-muted-foreground'
         )}
         builders={[builder]}
