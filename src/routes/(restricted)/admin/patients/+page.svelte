@@ -55,7 +55,7 @@
       : m.admin_patients_selectAPatient();
     selectedPatientBirthNumber = selectedPatient?.birth_number ?? '';
     selectedFlyerValue =
-      data.flyersResponse.find((f) => f.title === value2)?.title ?? 'Select a flyer';
+      data.flyersResponse.find((f) => f.title === value2)?.title ?? m.admin_patients_selectAFlyer();
     selectedFlyerId = data.flyersResponse.find((f) => f.title === value2)?.id ?? '';
   });
 
@@ -203,8 +203,8 @@
         </Popover.Trigger>
         <Popover.Content class="w-full max-w-[min(512px,90vw)] p-0">
           <Command.Root>
-            <Command.Input placeholder="Search by flyer name" />
-            <Command.Empty>No flyer.</Command.Empty>
+            <Command.Input placeholder={m.admin_patients_searchFlyer()} />
+            <Command.Empty>{m.admin_patients_noFlyers()}</Command.Empty>
             <Command.Group>
               {#each data.flyersResponse as flyer, index (index)}
                 <Command.Item
@@ -246,9 +246,11 @@
   <Textarea
     id="textarea"
     name="textarea"
-    placeholder="Type your message here..."
+    placeholder={m.admin_patients_textarea()}
     class="w-full"
     rows={4}
   />
-  <Button type="submit">Send notification</Button>
+  <Button type="submit">
+    {m.admin_patients_sendNotification()}
+  </Button>
 </form>
