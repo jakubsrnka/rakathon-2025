@@ -1,5 +1,6 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
+  "admin_flyers_id_sendToPatient": "Odeslat pacientovi",
   "admin_patients_selectAPatient": "Select a patient",
   "app_flyers_loading_flyer": "Načítám zprávu",
   "app_home_selfEducation": "Sebevzdělávání",
@@ -18,6 +19,7 @@
   "app_settings_darkModeHint": "Přepněte tmavý režim",
   "app_settings_heading": "Nastavení",
   "app_settings_language": "Jazyk",
+  "back": "Zpět",
   "error_back": "Zpět",
   "error_error": "Chyba",
   "flyer_new_language": "Jazyk",
