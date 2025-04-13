@@ -14,7 +14,7 @@
 <Card.Root>
   <Card.Content class="p-0">
     <Collapsible.Root>
-      <Collapsible.Trigger class="h-14 w-full font-bold hover:bg-slate-100">
+      <Collapsible.Trigger class="h-14 w-full rounded-full font-bold hover:backdrop-brightness-0">
         {title}
       </Collapsible.Trigger>
       <Collapsible.Content class="p-5">

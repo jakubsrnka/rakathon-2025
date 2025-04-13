@@ -6,6 +6,8 @@ import { demoApi } from '$lib/demoAPI';
 
 export const load: PageLoad = async ({ fetch }) => {
   try {
+    const flyersResponse = await pbClient.collection('flyers').getFullList({ fetch });
+
     const usersResponse = await pbClient
       .collection(Collections.Users)
       .getFullList<UsersResponse>({ fetch });
@@ -31,9 +33,9 @@ export const load: PageLoad = async ({ fetch }) => {
       }
     });
 
-    return { usersResponse, demoApi };
+    return { usersResponse, flyersResponse, demoApi };
   } catch {
     console.log('Error fetching users');
-    return { usersResponse: [], demoApi: [] };
+    return { usersResponse: [], flyersResponse: [], demoApi: [] };
   }
 };
