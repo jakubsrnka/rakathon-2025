@@ -41,8 +41,7 @@
 
   const back = () => {
     if (active === 0) {
-      time = 0;
-      active = 0;
+      history.back();
     } else if (active > 0) {
       active -= 1;
       time = active * length;
@@ -98,7 +97,8 @@
 {/if}
 <div class="absolute bottom-20 left-8 right-8 z-50 flex h-1 justify-between gap-4">
   {#if viewState === 0}
-    <Button class="w-20" onclick={back}>{m.back()}</Button>
+    <Button class="w-20" onclick={back}>
+      {m.back()}</Button>
     <Button
       class="w-20"
       onclick={() => {
