@@ -41,7 +41,7 @@
   <Story.Wrapper
     length={(flyer.contents?.length || 0) * storyDuration}
     bind:stopped={isStopped}
-    onend={() => goto('/app/notifications')}
+    onend={() => history.back()}
   >
     {#if flyer.contents}
       {#each flyer.contents as slide, index (index)}
