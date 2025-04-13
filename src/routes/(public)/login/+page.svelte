@@ -10,6 +10,7 @@
   import { Collections } from '$types/pocketbase';
   import type { AuthRecord } from 'pocketbase';
   import * as MockupIdentityLogin from '$lib/mockup-identity-login';
+  import Arrow from '$components/Arrow.svelte';
 
   const handleLogin = async (event: SubmitEvent) => {
     event.preventDefault();
@@ -36,6 +37,9 @@
   };
 </script>
 
+<Arrow
+  class="pointer-events-none absolute left-1/2 top-[calc(50%-200px)] z-30 -translate-x-1/2 -translate-y-1/2 transform sm:left-[calc(50%+20px)]"
+/>
 <div class="flex h-screen items-center justify-center">
   <Card.Root class="w-[90%] max-w-80">
     <Card.Header class="space-y-1">

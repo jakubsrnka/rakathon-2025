@@ -63,7 +63,7 @@
         title={notification.text}
         content={notification.expand?.flyer?.title ?? ''}
         link={notification.expand?.flyer ? `/app/flyers/${notification.expand.flyer.id}` : ''}
-        date={notification.created}
+        date={notification.time_to_send}
       />
     {/each}
   {/if}
