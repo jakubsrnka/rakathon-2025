@@ -2,6 +2,7 @@
   import type { PageData } from './$types';
   import { Check, Database, Plus } from '@lucide/svelte';
   import { ChevronsUpDown } from '@lucide/svelte';
+  import { currentUser } from '$lib/pocketbase';
   import { tick } from 'svelte';
   import * as Command from '$components/ui/command/index.js';
   import * as Popover from '$components/ui/popover/index.js';
@@ -13,25 +14,32 @@
   import type { UsersCreate } from '$types/user';
   import Badge from '$components/ui/badge/badge.svelte';
   import { m } from '$lib/paraglide/messages';
+  import * as Tabs from '$components/ui/tabs';
   import CreateFlyer from '$components/admin/CreateFlyer.svelte';
+  import { createNotification } from '$lib/pocketbase/notifications';
+  import type { Notification } from '$types/notification';
 
   let { data }: { data: PageData } = $props();
 
-  let open = $state(false);
+  let open1 = $state(false);
+  let open2 = $state(false);
   let value = $state('');
-  let selectedValue = $state('');
+  let selectedPatientValue = $state('');
   let selectedPatientBirthNumber = $state('');
+  let selectedFlyerValue = $state('');
 
   $effect(() => {
     const selectedPatient = data.demoApi.find((f) => f.birth_number === value);
-    selectedValue = selectedPatient
+    selectedPatientValue = selectedPatient
       ? `${selectedPatient.title_before ?? ''} ${selectedPatient.name} ${selectedPatient.surname} ${selectedPatient.title_after ?? ''}`
       : m.admin_patients_selectAPatient();
     selectedPatientBirthNumber = selectedPatient?.birth_number ?? '';
+    selectedFlyerValue =
+      data.flyersResponse.find((f) => f.title === value)?.title ?? 'Select a flyer';
   });
 
-  function closeAndFocusTrigger(triggerId: string) {
-    open = false;
+  function closeAndFocusTrigger(triggerId: string, setClosed: (val: boolean) => void) {
+    setClosed(false);
     tick().then(() => {
       document.getElementById(triggerId)?.focus();
     });
@@ -41,6 +49,7 @@
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const patient = formData.get('patient');
+    const flyer = formData.get('flyer');
     const textarea = formData.get('textarea');
 
     try {
@@ -63,6 +72,16 @@
         };
         await createUser(user);
       }
+      const userId = data.usersResponse.find((f) => f.birth_number === patient)?.id;
+      const adminId = $currentUser?.id;
+      // const notification: Notification = {
+      //   userId,
+      //   flyer: flyer,
+      //   message: textarea,
+      //   sender: adminId,
+      //   status: 'sent'
+      // };
+      await createNotification;
     } catch (error) {
       console.error('Error:', error);
     }
@@ -70,16 +89,16 @@
 </script>
 
 <form onsubmit={handleSubmit} class="mx-auto flex w-full max-w-[max(50%,512px)] flex-col gap-4">
-  <Popover.Root bind:open let:ids>
+  <Popover.Root bind:open={open1} let:ids>
     <Popover.Trigger asChild let:builder>
       <Button
         builders={[builder]}
         variant="outline"
         role="combobox"
-        aria-expanded={open}
+        aria-expanded={open1}
         class="w-full justify-between"
       >
-        {selectedValue}
+        {selectedPatientValue}
         <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
       </Button>
     </Popover.Trigger>
@@ -93,7 +112,7 @@
               value={person.birth_number}
               onSelect={(currentValue: string) => {
                 value = currentValue;
-                closeAndFocusTrigger(ids.trigger);
+                closeAndFocusTrigger(ids.trigger, (val) => (open1 = val));
               }}
               class="align flex items-center"
             >
@@ -120,7 +139,54 @@
     </Popover.Content>
   </Popover.Root>
   <input type="hidden" name="patient" bind:value={selectedPatientBirthNumber} />
-  <CreateFlyer />
+  <h2 class="w-full font-bold">Flyers</h2>
+  <Tabs.Root value="create" class="w-full">
+    <Tabs.List class="w-full">
+      <Tabs.Trigger class="w-1/2" value="create">Create</Tabs.Trigger>
+      <Tabs.Trigger class="w-1/2" value="import">Import</Tabs.Trigger>
+    </Tabs.List>
+    <Tabs.Content value="create">
+      <CreateFlyer />
+    </Tabs.Content>
+    <Tabs.Content value="import">
+      <Popover.Root bind:open={open2} let:ids>
+        <Popover.Trigger asChild let:builder>
+          <Button
+            builders={[builder]}
+            variant="outline"
+            role="combobox"
+            aria-expanded={open2}
+            class="w-full justify-between"
+          >
+            {selectedFlyerValue}
+            <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </Popover.Trigger>
+        <Popover.Content class="w-full max-w-[min(512px,90vw)] p-0">
+          <Command.Root>
+            <Command.Input placeholder="Search by flyer name" />
+            <Command.Empty>No flyer.</Command.Empty>
+            <Command.Group>
+              {#each data.flyersResponse as flyer, index (index)}
+                <Command.Item
+                  value={flyer.title}
+                  onSelect={(currentValue: string) => {
+                    value = currentValue;
+                    closeAndFocusTrigger(ids.trigger, (val) => (open2 = val));
+                  }}
+                  class="align flex items-center"
+                >
+                  <Check class={cn('mr-2 h-4 w-4', value !== flyer.title && 'text-transparent')} />
+                  {flyer.title}
+                </Command.Item>
+              {/each}
+            </Command.Group>
+          </Command.Root>
+        </Popover.Content>
+      </Popover.Root>
+    </Tabs.Content>
+  </Tabs.Root>
+  <input type="hidden" name="flyer" bind:value={selectedFlyerValue} />
   <Textarea
     id="textarea"
     name="textarea"

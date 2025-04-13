@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Button } from '$components/ui/button';
   import { m } from '$lib/paraglide/messages';
 </script>

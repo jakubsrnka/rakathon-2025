@@ -9,6 +9,7 @@
   import { m } from '$lib/paraglide/messages';
   import type { Flyer } from '$types/flyers';
   import { Plus, WandSparkles, X } from '@lucide/svelte';
+  import { createFlyer } from '$lib/pocketbase/flyer';
 
   let { importFlyer, variant = 1 }: { importFlyer?: Flyer; variant?: 1 | 2 } = $props();
 
@@ -57,6 +58,14 @@
     }
     submitted = false;
   };
+
+  async function handleClick() {
+    try {
+      await createFlyer(flyer);
+    } catch (error) {
+      console.error('Error creating flyer:', error);
+    }
+  }
 
   $effect(() => {
     if (submitted) {
@@ -212,7 +221,7 @@
         <Plus class="mr-2" />
       </Button>
       <Separator class="my-2" />
-      <div class="flex gap-2">
+      <div class="flex flex-wrap gap-2">
         {#each flyer.tags as _, index (index)}
           <Input
             bind:value={flyer.tags[index]}
@@ -227,7 +236,7 @@
         </Badge>
       </div>
       {#if variant === 1}
-        <Button onclick={() => console.log($state.snapshot(flyer))} class="flex w-full gap-2">
+        <Button onclick={handleClick} class="flex w-full gap-2">
           {m.flyer_new_save()}
         </Button>
       {/if}
@@ -235,10 +244,7 @@
   {/if}
 </div>
 {#if variant === 2}
-  <Button
-    onclick={() => console.log($state.snapshot(flyer))}
-    class="absolute bottom-4 right-4 max-w-96"
-  >
+  <Button onclick={handleClick} class="absolute bottom-4 right-4 max-w-96">
     {m.flyer_new_save()}
   </Button>
 {/if}

@@ -11,6 +11,7 @@ export enum Collections {
   Mfas = '_mfas',
   Otps = '_otps',
   Superusers = '_superusers',
+  Flyers = 'flyers',
   Notifications = 'notifications',
   Users = 'users',
   UsersInfo = 'usersInfo'
@@ -87,6 +88,15 @@ export type SuperusersRecord = {
   verified?: boolean;
 };
 
+export type FlyersRecord<Tcontents = unknown> = {
+  contents: null | Tcontents;
+  created?: IsoDateString;
+  id: string;
+  tags?: string;
+  title: string;
+  updated?: IsoDateString;
+};
+
 export enum NotificationsTagsOptions {
   'tag1' = 'tag1',
   'tag2' = 'tag2',
@@ -112,6 +122,7 @@ export enum UsersRoleOptions {
 }
 export type UsersRecord = {
   avatar?: string;
+  birth_number?: string;
   created?: IsoDateString;
   email: string;
   emailVisibility?: boolean;
@@ -120,7 +131,6 @@ export type UsersRecord = {
   name: string;
   password: string;
   role: UsersRoleOptions;
-  birth_number: string;
   surname: string;
   title_after?: string;
   title_before?: string;
@@ -153,6 +163,10 @@ export type MfasResponse<Texpand = unknown> = Required<MfasRecord> & BaseSystemF
 export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemFields<Texpand>;
 export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> &
   AuthSystemFields<Texpand>;
+export type FlyersResponse<Tcontents = unknown, Texpand = unknown> = Required<
+  FlyersRecord<Tcontents>
+> &
+  BaseSystemFields<Texpand>;
 export type NotificationsResponse<Texpand = unknown> = Required<NotificationsRecord> &
   BaseSystemFields<Texpand>;
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>;
@@ -167,6 +181,7 @@ export type CollectionRecords = {
   _mfas: MfasRecord;
   _otps: OtpsRecord;
   _superusers: SuperusersRecord;
+  flyers: FlyersRecord;
   notifications: NotificationsRecord;
   users: UsersRecord;
   usersInfo: UsersInfoRecord;
@@ -178,6 +193,7 @@ export type CollectionResponses = {
   _mfas: MfasResponse;
   _otps: OtpsResponse;
   _superusers: SuperusersResponse;
+  flyers: FlyersResponse;
   notifications: NotificationsResponse;
   users: UsersResponse;
   usersInfo: UsersInfoResponse;
@@ -192,6 +208,7 @@ export type TypedPocketBase = PocketBase & {
   collection(idOrName: '_mfas'): RecordService<MfasResponse>;
   collection(idOrName: '_otps'): RecordService<OtpsResponse>;
   collection(idOrName: '_superusers'): RecordService<SuperusersResponse>;
+  collection(idOrName: 'flyers'): RecordService<FlyersResponse>;
   collection(idOrName: 'notifications'): RecordService<NotificationsResponse>;
   collection(idOrName: 'users'): RecordService<UsersResponse>;
   collection(idOrName: 'usersInfo'): RecordService<UsersInfoResponse>;
