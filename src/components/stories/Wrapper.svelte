@@ -33,6 +33,8 @@
     if (active < count - 1) {
       active += 1;
       time = active * length; // fast forward time
+    } else {
+      time = (active + 1) * length; // go to end
     }
   };
 
@@ -105,7 +107,13 @@
     >
       <Text />
     </Button>
-    <Button class="w-20" onclick={skip} disabled={active === count - 1}>Next</Button>
+    <Button class="w-20" onclick={skip}>
+      {#if active !== count - 1}
+        Next
+      {:else}
+        Skip
+      {/if}
+    </Button>
   {:else}
     <div class="flex w-full justify-center">
       <Button
