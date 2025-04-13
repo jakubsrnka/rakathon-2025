@@ -5,7 +5,7 @@ import type { PatientNotification } from '$types/notification';
 export const createNotification = async (notificatio: PatientNotification) => {
   try {
     const response = await pbClient.collection(Collections.Notifications).create(notificatio);
-    console.log('Created notification:', response);
+    return response;
   } catch (error) {
     console.error('Error creating notification:', error);
   }

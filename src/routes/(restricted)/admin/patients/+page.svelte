@@ -3,6 +3,7 @@
   import { Check, Database, Plus, CalendarIcon } from '@lucide/svelte';
   import { ChevronsUpDown } from '@lucide/svelte';
   import { currentUser } from '$lib/pocketbase';
+  import { toast } from 'svelte-sonner';
   import { tick } from 'svelte';
   import * as Command from '$components/ui/command/index.js';
   import * as Popover from '$components/ui/popover/index.js';
@@ -18,9 +19,12 @@
   import CreateFlyer from '$components/admin/CreateFlyer.svelte';
   import { createNotification } from '$lib/pocketbase/notifications';
   import type { PatientNotification } from '$types/notification';
-  import { DateFormatter, type DateValue, getLocalTimeZone } from '@internationalized/date';
+  import { DateFormatter, type DateValue, getLocalTimeZone, today } from '@internationalized/date';
   import { Calendar } from '$components/ui/calendar/index.js';
   import type { Flyer } from '$types/flyers';
+  import { createFlyer } from '$lib/pocketbase/flyer';
+  import { redirect } from '@sveltejs/kit';
+  import { goto } from '$app/navigation';
 
   let { data }: { data: PageData } = $props();
 
@@ -28,12 +32,22 @@
   let open2 = $state(false);
   let value1 = $state('');
   let value2 = $state('');
-  let selectedTimeSend: DateValue | undefined = $state(undefined);
+  let selectedTimeSend: DateValue = $state(today(getLocalTimeZone()));
   let selectedPatientValue = $state('');
   let selectedPatientBirthNumber = $state('');
   let selectedFlyerValue = $state('');
   let selectedFlyerId = $state('');
-  let exportedFlyer = $state<Flyer>();
+  let flyerVersion: 'create' | 'import' = $state('create');
+  let exportedFlyer = $state<Flyer>({
+    heading: 'Letáček',
+    slides: [
+      {
+        title: 'Nadpis',
+        content: ['Obsah 1. řádku', 'Obsah 2. řádku']
+      }
+    ],
+    tags: []
+  });
 
   $effect(() => {
     const selectedPatient = data.demoApi.find((f) => f.birth_number === value1);
@@ -65,39 +79,49 @@
     try {
       if (!data.usersResponse.find((f) => f.birth_number === selectedPatientBirthNumber)) {
         const patientData = data.demoApi.find((f) => f.birth_number === selectedPatientBirthNumber);
-        if (!patientData) {
-          throw new Error('Patient not found');
-        }
         const password = window.crypto.getRandomValues(new BigUint64Array(1))[0].toString(36);
-        const user: UsersCreate = {
-          email: patientData.email,
-          name: patientData.name,
-          password: password,
-          passwordConfirm: password,
-          role: UsersRoleOptions.user,
-          birth_number: patientData.birth_number,
-          surname: patientData.surname,
-          title_before: patientData.title_before,
-          title_after: patientData.title_after
-        };
-        await createUser(user);
+        if (patientData) {
+          const user: UsersCreate = {
+            email: patientData.email,
+            name: patientData.name,
+            password: password,
+            passwordConfirm: password,
+            role: UsersRoleOptions.user,
+            birth_number: patientData.birth_number,
+            surname: patientData.surname,
+            title_before: patientData.title_before,
+            title_after: patientData.title_after
+          };
+          await createUser(user);
+        } else {
+          toast.error('Patient not found');
+          return;
+        }
       }
+      let flyerId = '';
+      if (flyerVersion === 'create') {
+        const newFlyer = await createFlyer(exportedFlyer);
+        flyerId = newFlyer?.id ?? '';
+      } else {
+        flyerId = selectedFlyerId;
+      }
+      const adminId = $currentUser?.id;
       const userId = data.usersResponse.find(
         (f) => f.birth_number === selectedPatientBirthNumber
       )?.id;
-      const adminId = $currentUser?.id;
-      const flyerId = selectedFlyerId;
-
+      const timeToSend = selectedTimeSend?.toDate(getLocalTimeZone());
       const notification: PatientNotification = {
         user: userId ?? '',
         flyer: flyerId ?? '',
         text: textarea ?? '',
-        time_to_send: selectedTimeSend ? selectedTimeSend.toDate(getLocalTimeZone()) : '',
+        time_to_send: timeToSend,
         admin: adminId ?? ''
       };
       await createNotification(notification);
+      toast.success('Notification sent successfully');
+      goto('/admin');
     } catch (error) {
-      console.error('Error:', error);
+      toast.error('Error sending notification');
     }
   }
 </script>
@@ -156,30 +180,16 @@
     <h2 class="w-full font-bold">Flyers</h2>
   {/if}
   <Tabs.Root value="create" class="w-full">
-    {#if !exportedFlyer}
-      <Tabs.List class="w-full">
-        <Tabs.Trigger class="w-1/2" value="create">Create</Tabs.Trigger>
-        <Tabs.Trigger class="w-1/2" value="import">Import</Tabs.Trigger>
-      </Tabs.List>
-    {/if}
+    <Tabs.List class="w-full">
+      <Tabs.Trigger class="w-1/2" value="create" onclick={() => (flyerVersion = 'create')}
+        >Create</Tabs.Trigger
+      >
+      <Tabs.Trigger class="w-1/2" value="import" onclick={() => (flyerVersion = 'import')}
+        >Import</Tabs.Trigger
+      >
+    </Tabs.List>
     <Tabs.Content value="create">
-      {#if !exportedFlyer}
-        <CreateFlyer bind:exportFlyer={exportedFlyer} />
-      {:else}
-        <div class="flex flex-col gap-2">
-          <h1 class="text-2xl font-bold">{exportedFlyer.heading}</h1>
-          {#if exportedFlyer.slides}
-            {#each exportedFlyer.slides as contents}
-              <h2 class="mt-2 text-lg font-medium">{contents.title}</h2>
-              <ul>
-                {#each contents.content as content}
-                  <li class="flex items-center gap-2 before:content-['-']">{content}</li>
-                {/each}
-              </ul>
-            {/each}
-          {/if}
-        </div>
-      {/if}
+      <CreateFlyer bind:flyer={exportedFlyer} />
     </Tabs.Content>
     <Tabs.Content value="import">
       <Popover.Root bind:open={open2} let:ids>
