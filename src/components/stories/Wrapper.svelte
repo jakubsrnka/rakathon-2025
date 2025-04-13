@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Button } from '$components/ui/button';
   import Progress from '$components/ui/progress/progress.svelte';
+  import { m } from '$lib/paraglide/messages';
   import { Text, GalleryHorizontal } from '@lucide/svelte';
   import { onMount, setContext, type Snippet } from 'svelte';
 
@@ -97,7 +98,7 @@
 {/if}
 <div class="absolute bottom-20 left-8 right-8 z-50 flex h-1 justify-between gap-4">
   {#if viewState === 0}
-    <Button class="w-20" onclick={back}>Back</Button>
+    <Button class="w-20" onclick={back}>{m.back()}</Button>
     <Button
       class="w-20"
       onclick={() => {
@@ -109,9 +110,9 @@
     </Button>
     <Button class="w-20" onclick={skip}>
       {#if active !== count - 1}
-        Next
+        {m.next()}
       {:else}
-        Skip
+        {m.skip()}
       {/if}
     </Button>
   {:else}
