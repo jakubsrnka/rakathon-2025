@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageData } from './$types';
-  import { Check, FileDown } from '@lucide/svelte';
+  import { Check, Database, Plus } from '@lucide/svelte';
   import { ChevronsUpDown } from '@lucide/svelte';
   import { tick } from 'svelte';
   import * as Command from '$components/ui/command/index.js';
@@ -13,18 +13,21 @@
   import type { UsersCreate } from '$types/user';
   import Badge from '$components/ui/badge/badge.svelte';
   import { m } from '$lib/paraglide/messages';
+  import CreateFlyer from '$components/admin/CreateFlyer.svelte';
 
   let { data }: { data: PageData } = $props();
 
   let open = $state(false);
   let value = $state('');
   let selectedValue = $state('');
+  let selectedPatientBirthNumber = $state('');
 
   $effect(() => {
     const selectedPatient = data.demoApi.find((f) => f.birth_number === value);
     selectedValue = selectedPatient
       ? `${selectedPatient.title_before ?? ''} ${selectedPatient.name} ${selectedPatient.surname} ${selectedPatient.title_after ?? ''}`
       : m.admin_patients_selectAPatient();
+    selectedPatientBirthNumber = selectedPatient?.birth_number ?? '';
   });
 
   function closeAndFocusTrigger(triggerId: string) {
@@ -50,11 +53,13 @@
         const user: UsersCreate = {
           email: patientData.email,
           name: patientData.name,
-          password,
+          password: password,
           passwordConfirm: password,
           role: UsersRoleOptions.user,
           birth_number: patientData.birth_number,
-          surname: patientData.surname
+          surname: patientData.surname,
+          title_before: patientData.title_before,
+          title_after: patientData.title_after
         };
         await createUser(user);
       }
@@ -95,6 +100,11 @@
               <Check
                 class={cn('mr-2 h-4 w-4', value !== person.birth_number && 'text-transparent')}
               />
+              {#if person.databaseId}
+                <Database class="mr-4 h-4 w-4 text-muted-foreground" />
+              {:else}
+                <Plus class="mr-4 h-4 w-4 text-muted-foreground" />
+              {/if}
               {person.title_before}
               {person.name}
               {person.surname}
@@ -109,7 +119,8 @@
       </Command.Root>
     </Popover.Content>
   </Popover.Root>
-  <input type="hidden" name="patient" bind:value={selectedValue} />
+  <input type="hidden" name="patient" bind:value={selectedPatientBirthNumber} />
+  <CreateFlyer />
   <Textarea
     id="textarea"
     name="textarea"
