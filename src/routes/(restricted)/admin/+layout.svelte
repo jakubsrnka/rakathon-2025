@@ -23,7 +23,7 @@
 
 <div class="grid min-h-screen w-svw max-w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
   <div class="hidden border-r bg-muted/40 md:block">
-    <div class="flex h-full max-h-screen flex-col gap-2">
+    <div class="fixed z-20 flex h-full max-h-screen flex-col gap-2">
       <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
         <a href="/admin" class="flex items-center gap-2 font-semibold">
           <HeartPulse class="h-6 w-6" />
@@ -52,12 +52,15 @@
             <ChartLine class="h-4 w-4" />
             Flyers
           </a>
+          <img src="/assets/qr.png" alt="QR code" class="absolute bottom-4 left-4 z-10 h-40 w-40" />
         </nav>
       </div>
     </div>
   </div>
   <div class="flex flex-col">
-    <header class="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+    <header
+      class="fixed right-0 z-10 flex h-14 w-full items-center gap-4 border-b bg-background px-4 lg:h-[60px] lg:px-6"
+    >
       <Sheet.Root>
         <Sheet.Trigger asChild let:builder>
           <Button variant="outline" size="icon" class="shrink-0 md:hidden" builders={[builder]}>
@@ -116,7 +119,7 @@
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </header>
-    <main class="max-w-svw flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+    <main class="max-w-svw flex flex-1 flex-col gap-4 p-4 pt-20 lg:gap-6 lg:px-6 lg:pb-6">
       {@render children()}
     </main>
   </div>
