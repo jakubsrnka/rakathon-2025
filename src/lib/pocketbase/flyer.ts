@@ -10,7 +10,7 @@ export const createFlyer = async (flyer: Flyer) => {
   };
   try {
     const response = await pbClient.collection(Collections.Flyers).create(flyerData);
-    console.log('Created flyer:', response);
+    return response;
   } catch (error) {
     console.error('Error creating flyer:', error);
   }

@@ -5,7 +5,7 @@ import { pbClient } from '$lib/pocketbase';
 export const createUser = async (user: UsersCreate) => {
   try {
     const response = await pbClient.collection(Collections.Users).create(user);
-    console.log('Created user:', response);
+    return response;
   } catch (error) {
     console.error('Error creating user:', error);
   }

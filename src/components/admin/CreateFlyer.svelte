@@ -12,8 +12,19 @@
   import { Minus, Plus, WandSparkles, X } from '@lucide/svelte';
   import { goto } from '$app/navigation';
 
-  let { exportFlyer = $bindable(), variant = 1 }: { exportFlyer?: Flyer; variant?: 1 | 2 } =
-    $props();
+  let {
+    flyer = $bindable({
+      heading: 'Letáček',
+      slides: [
+        {
+          title: 'Nadpis',
+          content: ['Obsah 1. řádku', 'Obsah 2. řádku']
+        }
+      ],
+      tags: []
+    }),
+    variant = 1
+  }: { flyer?: Flyer; variant?: 1 | 2 } = $props();
 
   let prompt: string | undefined = $state(undefined);
   let language: {
@@ -22,16 +33,6 @@
   } = $state({ value: 'Czech', label: 'Čeština' });
 
   let submitted = $state(false);
-  let flyer = $state<Flyer>({
-    heading: 'Letáček',
-    slides: [
-      {
-        title: 'Nadpis',
-        content: ['Obsah 1. řádku', 'Obsah 2. řádku']
-      }
-    ],
-    tags: []
-  });
 
   const languages = [
     { value: 'Czech', label: 'Čeština' },
@@ -62,7 +63,6 @@
   async function handleClick() {
     try {
       await createFlyer(flyer);
-      exportFlyer = flyer;
       goto('/admin/flyers');
     } catch (error) {
       console.error('Error creating flyer:', error);
@@ -248,11 +248,6 @@
           {m.flyer_new_tag()}
         </Badge>
       </div>
-      {#if variant === 1}
-        <Button onclick={handleClick} class="flex w-full gap-2">
-          {m.flyer_new_save()}
-        </Button>
-      {/if}
     </div>
   {/if}
 </div>
