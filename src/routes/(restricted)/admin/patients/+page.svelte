@@ -23,7 +23,6 @@
   import { Calendar } from '$components/ui/calendar/index.js';
   import type { Flyer } from '$types/flyers';
   import { createFlyer } from '$lib/pocketbase/flyer';
-  import { redirect } from '@sveltejs/kit';
   import { goto } from '$app/navigation';
 
   let { data }: { data: PageData } = $props();
@@ -56,7 +55,7 @@
       : m.admin_patients_selectAPatient();
     selectedPatientBirthNumber = selectedPatient?.birth_number ?? '';
     selectedFlyerValue =
-      data.flyersResponse.find((f) => f.title === value2)?.title ?? 'Select a flyer';
+      data.flyersResponse.find((f) => f.title === value2)?.title ?? m.admin_patients_selectAFlyer();
     selectedFlyerId = data.flyersResponse.find((f) => f.title === value2)?.id ?? '';
   });
 
@@ -142,8 +141,8 @@
     </Popover.Trigger>
     <Popover.Content class="w-full max-w-[min(512px,90vw)] p-0">
       <Command.Root>
-        <Command.Input placeholder="Search by birth number" />
-        <Command.Empty>No patient.</Command.Empty>
+        <Command.Input placeholder={m.admin_patients_searchPatient()} />
+        <Command.Empty>{m.admin_patients_noPatients()}</Command.Empty>
         <Command.Group>
           {#each data.demoApi as person, index (index)}
             <Command.Item
@@ -176,16 +175,13 @@
       </Command.Root>
     </Popover.Content>
   </Popover.Root>
-  {#if !exportedFlyer}
-    <h2 class="w-full font-bold">Flyers</h2>
-  {/if}
   <Tabs.Root value="create" class="w-full">
     <Tabs.List class="w-full">
-      <Tabs.Trigger class="w-1/2" value="create" onclick={() => (flyerVersion = 'create')}
-        >Create</Tabs.Trigger
-      >
+      <Tabs.Trigger class="w-1/2" value="create" onclick={() => (flyerVersion = 'create')}>
+        {m.admin_patients_tabCreate()}
+      </Tabs.Trigger>
       <Tabs.Trigger class="w-1/2" value="import" onclick={() => (flyerVersion = 'import')}
-        >Import</Tabs.Trigger
+        >{m.admin_patients_tabImport()}</Tabs.Trigger
       >
     </Tabs.List>
     <Tabs.Content value="create">
@@ -207,8 +203,8 @@
         </Popover.Trigger>
         <Popover.Content class="w-full max-w-[min(512px,90vw)] p-0">
           <Command.Root>
-            <Command.Input placeholder="Search by flyer name" />
-            <Command.Empty>No flyer.</Command.Empty>
+            <Command.Input placeholder={m.admin_patients_searchFlyer()} />
+            <Command.Empty>{m.admin_patients_noFlyers()}</Command.Empty>
             <Command.Group>
               {#each data.flyersResponse as flyer, index (index)}
                 <Command.Item
@@ -250,9 +246,11 @@
   <Textarea
     id="textarea"
     name="textarea"
-    placeholder="Type your message here..."
+    placeholder={m.admin_patients_textarea()}
     class="w-full"
     rows={4}
   />
-  <Button type="submit">Send notification</Button>
+  <Button type="submit">
+    {m.admin_patients_sendNotification()}
+  </Button>
 </form>
