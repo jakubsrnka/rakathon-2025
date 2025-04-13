@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { CircleUser, HeartPulse, ChartLine, Menu, Search, Users } from '@lucide/svelte';
+  import { CircleUser, HeartPulse, ChartLine, Menu, Users } from '@lucide/svelte';
 
   import { Button } from '$components/ui/button/index.js';
   import * as DropdownMenu from '$components/ui/dropdown-menu/index.js';
-  import { Input } from '$components/ui/input/index.js';
+  import { m } from '$lib/paraglide/messages';
   import * as Sheet from '$components/ui/sheet/index.js';
   import { currentUser, pbClient } from '$lib/pocketbase/';
 
@@ -41,7 +41,7 @@
               : 'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary'}
           >
             <Users class="h-4 w-4" />
-            Patients
+            {m.admin_home_patientsButton()}
           </a>
           <a
             href="/admin/flyers"
@@ -50,7 +50,7 @@
               : 'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary'}
           >
             <ChartLine class="h-4 w-4" />
-            Flyers
+            {m.admin_home_flyersButton()}
           </a>
           <img src="/assets/qr.png" alt="QR code" class="absolute bottom-4 left-4 z-10 h-40 w-40" />
         </nav>
@@ -80,7 +80,7 @@
                 builders={[builder]}
               >
                 <Users class="h-5 w-5" />
-                Patients
+                {m.admin_home_patientsButton()}
               </Button>
               <Button
                 variant="ghost"
@@ -91,7 +91,7 @@
                 builders={[builder]}
               >
                 <ChartLine class="h-5 w-5" />
-                Flyers
+                {m.admin_home_flyersButton()}
               </Button>
             </Sheet.Close>
           </nav>
@@ -110,12 +110,20 @@
           </Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content align="end">
-          <DropdownMenu.Label>My Account</DropdownMenu.Label>
+          <DropdownMenu.Label>
+            {m.admin_home_menuMyAccount()}
+          </DropdownMenu.Label>
           <DropdownMenu.Separator />
-          <DropdownMenu.Item>Settings</DropdownMenu.Item>
-          <DropdownMenu.Item href="/app">Switch to user</DropdownMenu.Item>
+          <DropdownMenu.Item>
+            {m.admin_home_menuSettings()}
+          </DropdownMenu.Item>
+          <DropdownMenu.Item href="/app">
+            {m.admin_home_menuSwitch()}
+          </DropdownMenu.Item>
           <DropdownMenu.Separator />
-          <DropdownMenu.Item onclick={handleLogout}>Logout</DropdownMenu.Item>
+          <DropdownMenu.Item onclick={handleLogout}>
+            {m.admin_home_menuLogout()}
+          </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </header>

@@ -6,5 +6,5 @@
 </script>
 
 <ModeWatcher />
-<Toaster richColors expand />
+<Toaster class="pointer-events-none" richColors expand />
 {@render children()}
