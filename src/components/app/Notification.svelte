@@ -20,7 +20,7 @@
 
 <div class={cn('', className)}>
   {#if date}
-    <h1 class="p-1 text-xl font-bold">
+    <h1 class="text-md p-1 pl-2">
       {new Date(date).toLocaleDateString(m.localeDateString(), {
         day: 'numeric',
         month: 'long',

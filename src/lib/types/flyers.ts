@@ -1,8 +1,10 @@
 export type Flyer = {
   heading: string;
-  slides: {
-    title: string;
-    content: string[];
-  }[];
+  slides: Slide[];
   tags: string[];
+};
+
+export type Slide = {
+  title: string;
+  content: string[];
 };

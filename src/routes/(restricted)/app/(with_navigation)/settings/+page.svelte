@@ -11,6 +11,15 @@
   import PageHeading from '$components/app/PageHeading.svelte';
   import Separator from '$components/ui/separator/separator.svelte';
   import { SunMoon } from '@lucide/svelte';
+  import { currentUser, pbClient } from '$lib/pocketbase';
+  import { UsersRoleOptions } from '$types/pocketbase';
+  import { goto } from '$app/navigation';
+
+  function handleLogout() {
+    pbClient.authStore.clear();
+    currentUser.set(null);
+    goto('/login');
+  }
 </script>
 
 <Wrapper class="flex flex-col gap-4">
@@ -50,5 +59,10 @@
     >
   </div>
   <Separator />
-  <Button href="/admin" variant="destructive">{m.app_settings_changeToAdminButton()}</Button>
+  <div class="flex flex-row-reverse items-center gap-4">
+    <Button onclick={handleLogout} variant="destructive">{m.app_settings_signOut()}</Button>
+    {#if $currentUser?.role === UsersRoleOptions.admin}
+      <Button href="/admin" variant="secondary">{m.app_settings_changeToAdminButton()}</Button>
+    {/if}
+  </div>
 </Wrapper>
