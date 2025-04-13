@@ -59,10 +59,10 @@
     >
   </div>
   <Separator />
-  {#if $currentUser?.role === UsersRoleOptions.admin}
-    <Button href="/admin" variant="destructive">{m.app_settings_changeToAdminButton()}</Button>
-  {/if}
-  <div class="flex flex-row-reverse items-center justify-between">
-    <Button on:click={handleLogout} variant="destructive">{m.app_settings_signOut()}</Button>
+  <div class="flex flex-row-reverse items-center gap-4">
+    <Button onclick={handleLogout} variant="destructive">{m.app_settings_signOut()}</Button>
+    {#if $currentUser?.role === UsersRoleOptions.admin}
+      <Button href="/admin" variant="secondary">{m.app_settings_changeToAdminButton()}</Button>
+    {/if}
   </div>
 </Wrapper>

@@ -14,7 +14,7 @@
   <PageHeading>{m.app_notifications_heading()}</PageHeading>
   {#await load()}
     {#each Array(6) as _}
-      <Skeleton class="h-6 w-full rounded-lg p-3" />
+      <Skeleton class="h-6 w-32 rounded-lg p-3" />
       <Skeleton class="h-12 w-full rounded-lg p-3" />
     {/each}
   {:then}
